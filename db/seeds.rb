@@ -22,7 +22,7 @@ Mentor.create!(
   email_address: "john.doe@example.com",
   password_digest: BCrypt::Password.create("password"),
   company_name: "Acme Corp",
-  job_title: "Software Engineer",
+  job_title: "Senior Software Engineer",
 )
 
 Mentor.create!(
@@ -32,24 +32,6 @@ Mentor.create!(
   password_digest: BCrypt::Password.create("password"),
   company_name: "TechCo",
   job_title: "Data Scientist",
-)
-
-Mentor.create!(
-  first_name: "John",
-  last_name: "Doe",
-  email_address: "john.doe@example.com",
-  password_digest: BCrypt::Password.create("password"),
-  company_name: "Acme Corp",
-  job_title: "Software Engineer",
-  mentor_applications: [
-    MentorApplication.create!(
-      application_status: "Approved",
-      resume_url: "https://example.com/john_doe_resume.pdf",
-      motivation: "I'm passionate about helping students succeed in their careers. I believe mentorship can be a powerful tool for growth and development.",
-      skills_expertise: "Software development, leadership, team collaboration",
-      philosophy: "I believe in creating a positive and supportive environment where students can learn and grow.",
-    ),
-  ],
 )
 
 MentorApplication.create!(
