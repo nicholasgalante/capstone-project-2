@@ -8,6 +8,7 @@ class CreateStudents < ActiveRecord::Migration[7.1]
       t.string :university_name
       t.string :degree_type
       t.string :area_of_study
+      t.date :expected_graduation_date
       t.integer :mentor_id  # foreign key for mentor
 
       t.timestamps

@@ -6,6 +6,7 @@ class CreateMentorApplications < ActiveRecord::Migration[7.1]
       t.text :motivation
       t.text :skills_expertise
       t.text :philosophy
+      t.integer :mentor_id  # foreign key for mentor
 
       t.timestamps
     end
