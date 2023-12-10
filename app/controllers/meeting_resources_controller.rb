@@ -1,0 +1,2 @@
+class MeetingResourcesController < ApplicationController
+end
