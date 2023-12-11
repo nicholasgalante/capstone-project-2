@@ -10,10 +10,16 @@ Rails.application.routes.draw do
 
   get "/mentors" => "mentors#index"
   get "/mentors/:id" => "mentors#show"
+  
   get "/students" => "students#index"
   get "/students/:id" => "students#show"
-  post "/mentors" => "mentors#create"
-  post "/students" => "students#create"
+
+  #sign up routes
+  post "/signup/mentors" => "mentors#create"
+  post "signup/students" => "students#create"
+
+  #session routes
   post "/login" => "sessions#create"
   delete "/logout" => "sessions#destroy"
+ 
 end
