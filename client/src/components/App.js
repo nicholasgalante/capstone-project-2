@@ -1,8 +1,15 @@
-import { useState, useEffect } from "react";
+import { UserProvider } from "../context/UserContext.js";
+import { Routes, Route } from "react-router-dom";
+import { Navbar } from "./Navbar";
 
 function App() {
-  
-  return ("Hey")
+  return (
+    <UserProvider>
+      <Routes>
+        <Route path="/" element={<Navbar />} />
+      </Routes>
+    </UserProvider>
+  );
 }
 
 export default App;
