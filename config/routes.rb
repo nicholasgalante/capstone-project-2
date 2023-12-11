@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get "/mentors" => "mentors#index"
   get "/mentors/:id" => "mentors#show"
-  
+
   get "/students" => "students#index"
   get "/students/:id" => "students#show"
 
@@ -21,5 +21,6 @@ Rails.application.routes.draw do
   #session routes
   post "/login" => "sessions#create"
   delete "/logout" => "sessions#destroy"
+  get "/user", => "application#current_user"
  
 end
