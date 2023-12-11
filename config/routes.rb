@@ -15,6 +15,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  # route to test your configuration
-  get "/hello", to: "application#hello_world"
+  #index all mentors
+  get "/mentors" => "mentors#index"
 end

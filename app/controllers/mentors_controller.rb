@@ -1,5 +1,10 @@
 class MentorsController < ApplicationController
-   before_action :authorize, only: [:show]
+   skip_before_action :authorize, only: [:show, :index]
+
+   def index
+      mentors = Mentor.all
+      render json: mentors
+   end
    
    def show
       mentor = Mentor.find_by(id: session[:mentor_id])
