@@ -17,4 +17,11 @@ Rails.application.routes.draw do
 
   #index all mentors
   get "/mentors" => "mentors#index"
+  get "/mentors/:id" => "mentors#show"
+  get "/students" => "students#index"
+  get "/students/:id" => "students#show"
+  post "/mentors" => "mentors#create"
+  post "/students" => "students#create"
+  post "/login" => "sessions#create"
+  delete "/logout" => "sessions#destroy"
 end
