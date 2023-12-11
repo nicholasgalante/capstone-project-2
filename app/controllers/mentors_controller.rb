@@ -3,12 +3,12 @@ class MentorsController < ApplicationController
 
    def index
       mentors = Mentor.all
-      render json: mentors
+      render json: mentors, status: :ok
    end
    
    def show
       mentor = Mentor.find_by(id: session[:mentor_id])
-      render json: mentor
+      render json: mentor, status: :ok
    end
    
    def create
