@@ -6,6 +6,6 @@ class Student < ApplicationRecord
 
   validates :first_name, :last_name, :email_address, :degree_type, :area_of_study, :expected_graduation_date, :university_name, presence: true
   validates :password, confirmation: true
-  validates :password, length: { minimum: 8, message: "must be at least 8 characters long" }
+  #validates :password, length: { minimum: 6, message: "must be at least 6 characters long" }
   validates :email_address, uniqueness: true
 end
