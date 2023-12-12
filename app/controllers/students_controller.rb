@@ -24,6 +24,6 @@ class StudentsController < ApplicationController
   private
 
   def student_params
-    params.permit(:name, :email, :password, :password_confirmation)
+    params.require(:student).permit(:first_name, :last_name, :email_address, :password, :password_confirmation, :university_name, :degree_type, :area_of_study, :expected_graduation_date)
   end
 end
