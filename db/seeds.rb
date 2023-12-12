@@ -19,7 +19,7 @@ puts "🌱 Seeding..."
 Mentor.create!(
   first_name: "Jon",
   last_name: "Doe",
-  email_address: "jon.doe@example.com",
+  email_address: "jon@example.com",
   password_digest: BCrypt::Password.create("password"),
   company_name: "Acme Corp",
   job_title: "Senior Software Engineer",
@@ -28,7 +28,7 @@ Mentor.create!(
 Mentor.create!(
   first_name: "Carla",
   last_name: "Doe",
-  email_address: "Carla.doe@example.com",
+  email_address: "carla@example.com",
   password_digest: BCrypt::Password.create("password"),
   company_name: "TechCo",
   job_title: "Data Scientist",
