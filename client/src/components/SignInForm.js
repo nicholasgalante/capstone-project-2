@@ -1,10 +1,14 @@
 import React, { useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
+//import { useNavigate } from "react-router-dom";
 
 function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
+  const { setUser } = useContext(UserContext);
+  //const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -21,7 +25,8 @@ function SignInForm() {
       setIsLoading(false);
       if (r.ok) {
         r.json().then((user) => {
-          console.log(user);
+          setUser(user);
+          //navigate("/dashboard")
         });
       } else {
         r.json().then((err) => console.log(err.errors));
@@ -31,6 +36,7 @@ function SignInForm() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <label>Sign In</label>
       <input
         value={email}
         onChange={(e) => setEmail(e.target.value)}
