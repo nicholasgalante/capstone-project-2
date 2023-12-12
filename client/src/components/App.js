@@ -1,6 +1,7 @@
 import { UserProvider } from "../context/UserContext.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./Navbar";
+import { SignInForm } from "./SignInForm";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navbar />} />
+          <Route path="/signin" element={<SignInForm />} />          
         </Routes>
       </BrowserRouter>
     </UserProvider>
