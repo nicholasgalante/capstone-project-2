@@ -21,6 +21,6 @@ Rails.application.routes.draw do
   #session routes
   post "/login" => "sessions#create"
   delete "/logout" => "sessions#destroy"
-  get "/user" => "application#show"
+  get "/user" => "sessions#show"
  
 end

@@ -12,6 +12,16 @@ class SessionsController < ApplicationController
       end
    end
 
+   #bug: session does not persist when reloaded
+   
+   def show
+      if @current_user
+        render json: @current_user, status: :ok
+      else
+        render json: { errors: ["Not authorized"] }, status: :unauthorized
+      end
+    end
+
    def destroy
       session.delete :user_id
       head :no_content
