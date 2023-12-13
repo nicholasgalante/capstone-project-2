@@ -1,20 +1,10 @@
 class StudentsController < ApplicationController
   skip_before_action :authorize, only: [:create]
 
-  def index
-    students = Student.all
-    render json: students, status: :ok
-  end
-
-  def show
-    student = Student.find_by(id: session[:student_id])
-    render json: student
-  end
-
   def create
     student = Student.create(student_params)
     if student.valid?
-      session[:student_id] = student.id
+      session[:user_id] = student.id
       render json: student
     else
       render json: { errors: student.errors.full_messages }, status: :unprocessable_entity
