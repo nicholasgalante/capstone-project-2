@@ -27,6 +27,11 @@ module CapstoneProject2
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.insert_before ActionDispatch::Cookies, ActionDispatch::Session::CookieStore
 
+    # Use the cookie_store for session storage
+    config.session_store :cookie_store, key: "_your_app_session", secure: true, httponly: true, same_site: :none
+
+    # Use SameSite=Strict for all cookies to help protect against CSRF
+    config.action_dispatch.cookies_same_site_protection = :strict
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
@@ -45,14 +50,5 @@ module CapstoneProject2
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-
-    # Adding back cookies and session middleware
-
-
-    # Use the cookie_store for session storage
-    config.session_store :cookie_store, key: '_your_app_session', secure: true, httponly: true, same_site: :none
-
-    # Use SameSite=Strict for all cookies to help protect against CSRF
-    config.action_dispatch.cookies_same_site_protection = :lax
   end
 end
