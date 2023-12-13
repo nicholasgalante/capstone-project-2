@@ -99,4 +99,4 @@ function MentorSignUpForm() {
   );
 }
 
-export default MentorSignUpForm;
+export  {MentorSignUpForm};
