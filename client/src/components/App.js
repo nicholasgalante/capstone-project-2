@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import { SignInForm } from "./SignInForm";
 import { StudentSignUpForm } from "./StudentSignUpForm";
+import { MentorSignUpForm } from "./MentorSignUpForm";
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Navbar />} />
           <Route path="/signin" element={<SignInForm />} /> 
-          <Route path="/signup/student" element={<StudentSignUpForm />} />         
+          <Route path="/signup/students" element={<StudentSignUpForm />} />  
+          <Route path="/signup/mentors" element={<MentorSignUpForm />} />       
         </Routes>
       </BrowserRouter>
     </UserProvider>
