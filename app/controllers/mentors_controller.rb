@@ -1,5 +1,5 @@
 class MentorsController < ApplicationController
-   skip_before_action :authorize, only: [:show, :index]
+   skip_before_action :authorize, only: [:create]
 
    def index
       mentors = Mentor.all
@@ -24,6 +24,6 @@ class MentorsController < ApplicationController
    private
    
    def mentor_params
-      params.permit(:name, :email, :password, :password_confirmation)
+      params.require(:mentor).permit(:first_name, :last_name, :email_address, :password, :password_confirmation, :company_name, :job_title)
    end
 end
