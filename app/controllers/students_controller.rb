@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :authorize, only: [:show]
+  skip_before_action :authorize, only: [:create]
 
   def index
     students = Student.all
