@@ -110,7 +110,7 @@ function StudentSignUpForm() {
         placeholder="Confirm Password"
       />
       <button type="submit">{isLoading ? "Loading..." : "Sign Up"}</button>
-      {errors.map((err) => ({ err }))}
+      {errors.map((err) => ( err))}
     </form>
   );
 }
