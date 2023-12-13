@@ -7,7 +7,7 @@ class ApplicationController < ActionController::API
 
   def authorize
     #bug: session info does not persist after login sessions:create
-    Rails.logger.debug("Session data: #{session.inspect}")
+    Rails.logger.debug("Session data - ApplicationAuthorize: #{session.inspect}")
     if session[:user_type] == "mentor"
       @current_user = Mentor.find_by(id: session[:user_id])
       render json: { user: @current_user }
