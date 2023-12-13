@@ -7,13 +7,13 @@ class SessionsController < ApplicationController
       if user&.authenticate(params[:password])
          session[:user_id] = user.id
          session[:user_type] = user.class.name.downcase # "mentor" or "student"
-         render json: user
+         render json: user, status: :created
       else
          render json: { errors: ["Invalid email or password"] }, status: :unauthorized
       end
+      #succesfully saves user id and type to session
+      Rails.logger.debug("Session data: #{session.inspect}")
    end
-
-   #bug: session does not persist when reloaded
    
    def show
       if @current_user
@@ -25,6 +25,7 @@ class SessionsController < ApplicationController
 
    def destroy
       session.delete :user_id
+      session.delete :user_type
       head :no_content
    end
 end

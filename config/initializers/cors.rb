@@ -8,14 +8,9 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     origins "http://localhost:4000"
-    # origin ? origin : '*'
 
     resource "*",
       headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head]
-    # cors.allow_methods %w(GET POST PATCH PUT DELETE OPTIONS)
-    # cors.allow_headers %w(Content-Type Authorization Accept)
-    # Add `Cookie` and any other relevant headers for session access
-    # cors.expose_headers %w(Content-Length Content-Type Authorization)
+      methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
   end
 end
