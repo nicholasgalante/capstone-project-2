@@ -12,8 +12,7 @@ class SessionsController < ApplicationController
       else
          render json: { errors: ["Invalid email or password"] }, status: :unauthorized
       end
-      #succesfully saves user id and type to session
-      Rails.logger.debug("Session data - SessionCreate: #{session.inspect}")
+      #Rails.logger.debug("Session data - SessionCreate: #{session.inspect}")
    end
    
    def show
