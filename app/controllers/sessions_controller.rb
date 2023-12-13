@@ -7,12 +7,13 @@ class SessionsController < ApplicationController
       if user&.authenticate(params[:password])
          session[:user_id] = user.id
          session[:user_type] = user.class.name.downcase # "mentor" or "student"
+         session[:count] = (session[:count] || 0) + 1
          render json: user, status: :created
       else
          render json: { errors: ["Invalid email or password"] }, status: :unauthorized
       end
       #succesfully saves user id and type to session
-      Rails.logger.debug("Session data: #{session.inspect}")
+      Rails.logger.debug("Session data - SessionCreate: #{session.inspect}")
    end
    
    def show
