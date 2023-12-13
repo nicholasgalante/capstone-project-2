@@ -6,8 +6,13 @@ class ApplicationController < ActionController::API
   before_action :authorize
 
   def authorize
-    @current_user = Mentor.find_by(id: session[:user_id]) || Student.find_by(id: session[:user_id])
-    render json: { errors: ["Not authorized"] }, status: :unauthorized unless @current_user
+    if session[:user_type] == "mentor"
+      @current_user = Mentor.find_by(id: session[:user_id])
+    elsif session[:user_type] == "student"
+      @current_user = Student.find_by(id: session[:user_id])
+    else
+      render json: { errors: ["Not authorized"] }, status: :unauthorized unless @current_user
+    end
   end
 
   private

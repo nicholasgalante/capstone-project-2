@@ -3,9 +3,10 @@ class SessionsController < ApplicationController
    
    def create
       email_address = params[:email_address].downcase
-      user = Mentor.find_by(email_address: email_address) || Student.find_by(email_address: params[:email_address].downcase)
+      user = Mentor.find_by(email_address: email_address) || Student.find_by(email_address: email_address)
       if user&.authenticate(params[:password])
          session[:user_id] = user.id
+         session[:user_type] = user.class.name.downcase # "mentor" or "student"
          render json: user
       else
          render json: { errors: ["Invalid email or password"] }, status: :unauthorized
