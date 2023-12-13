@@ -6,7 +6,6 @@ class ApplicationController < ActionController::API
   before_action :authorize
 
   def authorize
-    #bug: session info does not persist after login sessions:create
     Rails.logger.debug("Session data - ApplicationAuthorize: #{session.inspect}")
     if session[:user_type] == "mentor"
       @current_user = Mentor.find_by(id: session[:user_id])
@@ -16,13 +15,6 @@ class ApplicationController < ActionController::API
     else
       render json: { errors: ["Not authorized"] }, status: :unauthorized unless @current_user
     end
-  end
-
-
-  #tested to see if sessions and cookies are working properly in browser => successful 
-  def hello_world
-    session[:count] = (session[:count] || 0) + 1
-    render json: { count: session[:user_type] }
   end
 
   private
