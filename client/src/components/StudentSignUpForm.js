@@ -3,6 +3,8 @@ import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 
+//Bug: After signing up, the user session does not persist
+
 function StudentSignUpForm() {
   const [formData, setFormData] = useState({
     firstName: "",
