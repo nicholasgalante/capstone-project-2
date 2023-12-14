@@ -6,15 +6,21 @@ class ApplicationController < ActionController::API
   before_action :authorize
 
   def authorize
-    #Rails.logger.debug("Session data - ApplicationAuthorize: #{session.inspect}")
-    if session[:user_type] == "mentor"
-      @current_user = Mentor.find_by(id: session[:user_id])
-      render json: { user: @current_user }
-    elsif session[:user_type] == "student"
-      @current_user = Student.find_by(id: session[:user_id])
+    user_type = session[:user_type]
+    user_id = session[:user_id]
+  
+    unless user_type && user_id
+      render json: { errors: ["Not authorized"] }, status: :unauthorized
+      return
+    end
+  
+    model_class = user_type.capitalize.constantize
+    @current_user = model_class.find_by(id: user_id)
+  
+    if @current_user
       render json: { user: @current_user }
     else
-      render json: { errors: ["Not authorized"] }, status: :unauthorized unless @current_user
+      render json: { errors: ["Not authorized"] }, status: :unauthorized
     end
   end
 
