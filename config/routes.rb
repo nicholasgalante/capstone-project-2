@@ -22,5 +22,8 @@ Rails.application.routes.draw do
   post "/login" => "sessions#create"
   delete "/logout" => "sessions#destroy"
   get "/user" => "sessions#show"
+
+  #meeting routes
+  resources :meetings, only: [:index, :show, :create, :update, :destroy]
   
 end
