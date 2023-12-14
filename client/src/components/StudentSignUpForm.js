@@ -2,16 +2,19 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
+
 function StudentSignUpForm() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [universityName, setUniversityName] = useState("");
-  const [degreeType, setDegreeType] = useState("");
-  const [areaOfStudy, setAreaOfStudy] = useState("");
-  const [expectedGraduationDate, setExpectedGraduationDate] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    universityName: "",
+    degreeType: "",
+    areaOfStudy: "",
+    expectedGraduationDate: "",
+    email: "",
+    password: "",
+    passwordConfirmation: "",
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const { setUser } = useContext(UserContext);
@@ -27,17 +30,7 @@ function StudentSignUpForm() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        student: {
-          first_name: firstName,
-          last_name: lastName,
-          university_name: universityName,
-          degree_type: degreeType,
-          area_of_study: areaOfStudy,
-          expected_graduation_date: expectedGraduationDate,
-          email_address: email,
-          password: password,
-          password_confirmation: passwordConfirmation,
-        },
+        student: formData,
       }),
     }).then((r) => {
       setIsLoading(false);
@@ -52,67 +45,81 @@ function StudentSignUpForm() {
     });
   }
 
+  function handleChange(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <label>Sign Up</label>
       <input
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
+        value={formData.firstName}
+        onChange={handleChange}
         type="text"
+        name="firstName"
         placeholder="First Name"
       />
       <input
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
+        value={formData.lastName}
+        onChange={handleChange}
         type="text"
+        name="lastName"
         placeholder="Last Name"
       />
       <input
-        value={universityName}
-        onChange={(e) => setUniversityName(e.target.value)}
+        value={formData.universityName}
+        onChange={handleChange}
         type="text"
+        name="universityName"
         placeholder="University Name"
       />
       <input
-        value={degreeType}
-        onChange={(e) => setDegreeType(e.target.value)}
+        value={formData.degreeType}
+        onChange={handleChange}
         type="text"
+        name="degreeType"
         placeholder="Degree Type"
       />
       <input
-        value={areaOfStudy}
-        onChange={(e) => setAreaOfStudy(e.target.value)}
+        value={formData.areaOfStudy}
+        onChange={handleChange}
         type="text"
+        name="areaOfStudy"
         placeholder="Area of Study"
       />
       <input
-        value={expectedGraduationDate}
-        onChange={(e) => setExpectedGraduationDate(e.target.value)}
+        value={formData.expectedGraduationDate}
+        onChange={handleChange}
         type="text"
+        name="expectedGraduationDate"
         placeholder="Expected Graduation Date"
       />
       <input
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={formData.email}
+        onChange={handleChange}
         type="email"
+        name="email"
         placeholder="Email"
       />
       <input
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={formData.password}
+        onChange={handleChange}
         type="password"
+        name="password"
         placeholder="Password"
       />
       <input
-        value={passwordConfirmation}
-        onChange={(e) => setPasswordConfirmation(e.target.value)}
+        value={formData.passwordConfirmation}
+        onChange={handleChange}
         type="password"
+        name="passwordConfirmation"
         placeholder="Confirm Password"
       />
       <button type="submit">{isLoading ? "Loading..." : "Sign Up"}</button>
-      {errors.map((err) => ( err))}
+      {errors.map((err) => err)}
     </form>
   );
 }
+
 
 export { StudentSignUpForm };
