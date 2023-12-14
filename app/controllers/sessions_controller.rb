@@ -21,14 +21,11 @@ class SessionsController < ApplicationController
       else
         render json: { errors: ["Not authorized"] }, status: :unauthorized
       end
-      # Rails.logger.debug("Session data - SHOW: #{session.inspect}")
     end
 
    def destroy
-      # Rails.logger.debug("Session data - BEFORE DESTROY: #{session.inspect}")
       session.delete :user_id
       session.delete :user_type
       head :no_content
-      # Rails.logger.debug("Session data - AFTER DESTROY: #{session.inspect}")
    end
 end
