@@ -1,8 +1,7 @@
 class MeetingsController < ApplicationController
-   skip_before_action :authorize
 
    def index
-      meetings = Meeting.all
+      meetings = @current_user.meetings.all
       render json: meetings, status: :ok
    end
 
@@ -12,7 +11,7 @@ class MeetingsController < ApplicationController
    end
 
    def create
-      meeting = Meeting.create(meeting_params)
+      meeting = Meeting.create!(meeting_params)
       render json: meeting, status: :created
    end
 
@@ -25,7 +24,7 @@ class MeetingsController < ApplicationController
    private
 
    def meeting_params
-      params.require(:meeting). permit(:mentor_id, :student_id, :meeting_date, :meeting_time, :meeting_location, :meeting_notes)
+      params.require(:meeting).permit(:mentor_id, :student_id, :organizer_id, :location, :meeting_datetime, :topics_discussed, :next_steps)
    end
 
 end
