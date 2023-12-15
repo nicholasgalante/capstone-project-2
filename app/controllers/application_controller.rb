@@ -16,12 +16,6 @@ class ApplicationController < ActionController::API
   
     model_class = user_type.capitalize.constantize
     @current_user = model_class.find_by(id: user_id)
-  
-    if @current_user
-      render json: { user: @current_user }
-    else
-      render json: { errors: ["Not authorized"] }, status: :unauthorized
-    end
   end
 
   private
