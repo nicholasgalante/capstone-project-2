@@ -23,6 +23,7 @@ function Navbar() {
       <Link to="/signup">
         <button>Sign Up</button>
       </Link>
+      {user? user.first_name :null}
     </>
   );
 }
