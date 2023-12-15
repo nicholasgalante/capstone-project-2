@@ -13,7 +13,7 @@ function MeetingsPage() {
   const { user, setUser } = useContext(UserContext);
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <div>Please sign in to view meetings.</div>;
   }
 
   function handleChange(e) {
