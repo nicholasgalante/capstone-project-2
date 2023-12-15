@@ -3,6 +3,7 @@ class Mentor < ApplicationRecord
   before_save :downcase_email
 
   has_one :student
+  has_one :mentor_application
   has_many :meetings, dependent: :destroy
 
   validates :first_name, :last_name, :email_address, :company_name, :job_title, presence: true
