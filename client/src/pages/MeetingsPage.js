@@ -7,15 +7,14 @@ function MeetingsPage() {
     meeting_datetime: "",
     location: "",
   });
+
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const { user, setUser } = useContext(UserContext);
 
   if (!user) {
-    return <p>Loading...</p>;
+    return <div>Loading...</div>;
   }
-
-  // if (isLoading) return <p>Loading...</p>;
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -60,7 +59,7 @@ function MeetingsPage() {
           setIsLoading(false);
           setErrors(data.errors);
         } else {
-          console.log(data);
+          addMeetingToUser(data);
           setIsLoading(false);
           setFormData({
             meeting_datetime: "",
@@ -70,18 +69,16 @@ function MeetingsPage() {
       });
   }
 
+  function addMeetingToUser(meeting) {
+    setUser({
+      ...user,
+      meetings: [...user.meetings, meeting],
+    });
+  }
+
   return (
     <div>
       <h1>Meetings</h1>
-      <ul>
-        {user.meetings.map((meeting) => (
-          <li key={meeting.id}>
-            <Link to={`/meetings/${meeting.id}`}>
-              {meeting.meeting_datetime}
-            </Link>
-          </li>
-        ))}
-      </ul>
       <form onSubmit={handleSubmit}>
         <label>Create a new meeting</label>
         <input
@@ -100,6 +97,15 @@ function MeetingsPage() {
         <button type="submit">Create Meeting</button>
         {errors.map((err) => err)}
       </form>
+      <ul>
+        {user.meetings.map((meeting) => (
+          <li key={meeting.id}>
+            <Link to={`/meetings/${meeting.id}`}>
+              {meeting.meeting_datetime}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
