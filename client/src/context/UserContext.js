@@ -5,12 +5,11 @@ export const UserContext = createContext(null);
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  console.log("user", user);
-
   useEffect(() => {
     fetch("/user")
       .then((res) => res.json())
       .then((data) => {
+        console.log("FETCH USER DATA: ", data);
         setUser(data);
       });
   }, []);

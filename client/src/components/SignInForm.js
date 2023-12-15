@@ -7,8 +7,10 @@ function SignInForm() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   //const navigate = useNavigate();
+
+  console.log(user);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -21,11 +23,12 @@ function SignInForm() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email_address: email, password: password }),
-      credentials: 'include', // <-- includes cookies in the request
+      credentials: "include", // <-- includes cookies in the request
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
         r.json().then((user) => {
+          console.log(user);
           setUser(user);
           //navigate("/dashboard")
         });
@@ -51,7 +54,7 @@ function SignInForm() {
         placeholder="Password"
       />
       <button type="submit">{isLoading ? "Loading..." : "Sign in"}</button>
-      {errors.map((err) => ({ err }))}
+      {errors.map((err) => err)}
     </form>
   );
 }
