@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SignInForm() {
   const [email, setEmail] = useState("");
@@ -8,7 +8,7 @@ function SignInForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const { user, setUser } = useContext(UserContext);
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   console.log(user);
 
@@ -30,7 +30,7 @@ function SignInForm() {
         r.json().then((user) => {
           console.log(user);
           setUser(user);
-          //navigate("/dashboard")
+          navigate("/dashboard")
         });
       } else {
         r.json().then((err) => console.log(err.errors));
