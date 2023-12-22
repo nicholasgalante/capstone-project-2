@@ -16,7 +16,7 @@ function Navbar() {
         setUser(null);
       }
     });
-    navigate("/")
+    navigate("/");
   }
 
   return (
@@ -34,7 +34,9 @@ function Navbar() {
       <Link to="/meetings">
         <button>Meetings</button>
       </Link>
-
+      <Link to="/resources">
+        <button>Resources</button>
+      </Link>
       {user ? user.first_name : null}
     </>
   );
