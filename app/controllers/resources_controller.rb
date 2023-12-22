@@ -1,5 +1,6 @@
 class ResourcesController < ApplicationController
    def index
+      #render only all resources between a mentor and their student
       resources = Resource.all
       render json: resources, status: :ok
    end
