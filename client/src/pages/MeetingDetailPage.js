@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 
 function MeetingDetailPage() {
   const [meetingData, setMeetingData] = useState({
-      meeting_datetime: "",
-      location: "",
-      topics_discussed: "",
-      next_steps: "",
+    meeting_datetime: "",
+    location: "",
+    topics_discussed: "",
+    next_steps: "",
   });
   const [updating, setUpdating] = useState(false);
   const { meetingID } = useParams();
@@ -28,22 +28,22 @@ function MeetingDetailPage() {
   const { meeting_datetime, location, topics_discussed, next_steps } =
     selectedMeeting;
 
-
-   //CONTINUE HERE - handle submit and edit form for meeting details***
-   function handleSubmit() { 
-      fetch(`/api/meetings/${meetingID}`, {
-         method: "PATCH",
-         headers: {
-         "Content-Type": "application/json",
-         },
-         body: JSON.stringify(meetingData),
-      })
-         .then((res) => res.json())
-         .then((data) => {
-         console.log(data);
-         setMeetingData(data);
-         setUpdating(false);
-         });
+  //CONTINUE HERE - handle submit and edit form for meeting details***
+  function handleSubmit() {
+    fetch(`/api/meetings/${meetingID}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(meetingData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setMeetingData(data);
+        setUpdating(false);
+      });
+  }
 
   return (
     <div>
@@ -60,7 +60,6 @@ function MeetingDetailPage() {
           <input type="text" value={topics_discussed} />
           <h2>Next Steps:</h2>
           <input type="text" value={next_steps} />
-          
         </div>
       ) : (
         <div>
