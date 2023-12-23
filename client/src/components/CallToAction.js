@@ -4,13 +4,13 @@ export default function CallToAction() {
        <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
          <div className="mx-auto max-w-2xl text-center">
            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-             Boost your productivity.
-             <br />
-             Start using our app today.
+      {/* Meet your Mentor,
+      <br/> */}
+      Bridge the gap to your dream tech career
+
            </h2>
            <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">
-             Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur
-             commodo do ea.
+           Start your personalized one-to-one mentorship journey today and unlock your career potential.
            </p>
            <div className="mt-10 flex items-center justify-center gap-x-6">
              <a
@@ -20,7 +20,7 @@ export default function CallToAction() {
                Get started
              </a>
              <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-               Learn more <span aria-hidden="true">→</span>
+               Sign In <span aria-hidden="true">→</span>
              </a>
            </div>
          </div>

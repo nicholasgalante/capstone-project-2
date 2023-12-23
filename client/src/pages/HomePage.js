@@ -14,7 +14,7 @@ function HomePage() {
       <AboutSection />
       <StatsSection />
       <TestimonialSection />
-      <FAQSection />
+      {/* <FAQSection /> */}
       <CallToAction />
       <Footer/>
     </div>

@@ -6,7 +6,8 @@ import {
   XMarkIcon,
   CloudArrowUpIcon,
   LockClosedIcon,
-  ServerIcon, StarIcon,
+  ServerIcon,
+  StarIcon,
 } from "@heroicons/react/24/outline";
 
 const navigation = [{ name: "Log in", href: "#" }];
@@ -25,6 +26,10 @@ function Hero() {
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
               alt="Your Company"
             />
+            <p className="text-base font-semibold leading-7 text-indigo-600">
+              TechBridge
+            </p>
+
             <h1 className="mt-24 text-4xl font-bold tracking-tight text-gray-900 sm:mt-10 sm:text-6xl">
               Bridge your pathway to tech success
             </h1>
@@ -56,7 +61,6 @@ function Hero() {
           />
         </div>
       </section>
-
     </div>
   );
 }
