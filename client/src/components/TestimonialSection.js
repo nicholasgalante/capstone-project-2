@@ -20,7 +20,7 @@ export default function TestimonialSection() {
                  <div className="text-base">
                    <div className="font-semibold text-gray-900">Maria P.</div>
                    <div className="mt-1 text-gray-500">Computer Science Student</div>
-                   <div className="mt-1 text-gray-500">Quantum Leap University </div>
+                   <div className=" text-gray-500">High Gate University </div>
 
                  </div>
                </figcaption>
@@ -42,8 +42,8 @@ export default function TestimonialSection() {
                  />
                  <div className="text-base">
                    <div className="font-semibold text-gray-900">Joseph Rodriguez</div>
-                   <div className="mt-1 text-gray-500">Senior Developer</div>
-                   <div className="mt-1 text-gray-500">SparkLoop</div>
+                   <div className="mt-1 text-gray-500">Senior Developer, TechBridge Mentor</div>
+                   <div className="text-gray-500">SparkLoop</div>
                  </div>
                </figcaption>
              </figure>
