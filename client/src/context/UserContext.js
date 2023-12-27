@@ -9,10 +9,11 @@ export const UserProvider = ({ children }) => {
     fetch("/user")
       .then((res) => res.json())
       .then((data) => {
-        console.log("FETCH USER DATA: ", data);
         setUser(data);
       });
   }, []);
+
+  console.log(user)
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
