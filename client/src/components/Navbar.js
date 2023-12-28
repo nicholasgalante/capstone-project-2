@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { UserContext } from "../context/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 function Navbar() {
@@ -23,7 +23,6 @@ function Navbar() {
         navigate("/");
       }
     });
-
   }
 
   return (
@@ -34,38 +33,33 @@ function Navbar() {
             <div className="flex h-16 justify-between">
               <div className="flex">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
+                  <Link to="/"><img
                     className="h-8 w-auto"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                     alt="Your Company"
-                  />
+                  /></Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-                  <a
-                    href="#"
-                    className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900"
-                  >
-                    Dashboard
-                  </a>
-                  <a
-                    href="#"
-                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                  >
-                    Team
-                  </a>
-                  <a
-                    href="#"
-                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                  >
-                    Projects
-                  </a>
-                  <a
-                    href="#"
-                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                  >
-                    Calendar
-                  </a>
+                  
+                    <a
+                      className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900"
+                    >
+                      <Link to="/meetings">Meetings</Link>
+                    </a>
+                  
+                  
+                    <a
+                      className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                    >
+                      <Link to="/calendar">Calendar</Link>
+                    </a>
+                  
+                  
+                    <a className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                    <Link to="/resources"> Resources</Link>
+                    </a>
+                  
                 </div>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
@@ -105,7 +99,10 @@ function Navbar() {
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
                           >
                             Your Profile
                           </a>
@@ -115,7 +112,10 @@ function Navbar() {
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
                           >
                             Settings
                           </a>
@@ -125,7 +125,10 @@ function Navbar() {
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
                           >
                             Sign out
                           </a>
@@ -192,8 +195,12 @@ function Navbar() {
                   />
                 </div>
                 <div className="ml-3">
-                  <div className="text-base font-medium text-gray-800">Tom Cook</div>
-                  <div className="text-sm font-medium text-gray-500">tom@example.com</div>
+                  <div className="text-base font-medium text-gray-800">
+                    Tom Cook
+                  </div>
+                  <div className="text-sm font-medium text-gray-500">
+                    tom@example.com
+                  </div>
                 </div>
                 <button
                   type="button"
@@ -232,7 +239,7 @@ function Navbar() {
         </>
       )}
     </Disclosure>
-  )
+  );
 }
 
 export { Navbar };
