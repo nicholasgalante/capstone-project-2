@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, redirect } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import { NewMeetingForm } from "../components/NewMeetingForm";
+
 
 function MeetingsPage() {
-  const [formData, setFormData] = useState({
-    meeting_datetime: "",
-    location: "",
-  });
-
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const { user, setUser } = useContext(UserContext);
@@ -16,127 +13,12 @@ function MeetingsPage() {
     return <div>Please sign in to view meetings.</div>;
   }
 
-  function handleChange(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
-
-  function getUserIDs() {
-    if (user.company_name) {
-      return {
-        ...formData,
-        organizer_id: user.id,
-        mentor_id: user.id,
-        student_id: user.student.id,
-      };
-    } else {
-      return {
-        ...formData,
-        organizer_id: user.id,
-        student_id: user.id,
-        mentor_id: user.mentor.id,
-      };
-    }
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    setIsLoading(true);
-    setErrors([]);
-
-    let meetingData = getUserIDs();
-    console.log("STRINGIFIED DATA: ", JSON.stringify(meetingData));
-
-    fetch("/meetings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(meetingData),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.errors) {
-          setIsLoading(false);
-          setErrors(data.errors);
-        } else {
-          addMeetingToUser(data);
-          setIsLoading(false);
-          setFormData({
-            meeting_datetime: "",
-            location: "",
-          });
-        }
-      });
-  }
-
-  function addMeetingToUser(meeting) {
-    setUser({
-      ...user,
-      meetings: [...user.meetings, meeting],
-    });
-  }
-
   return (
     <div>
-      <h1>Meetings</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Create a new meeting</label>
-        <input
-          value={formData.meeting_datetime}
-          onChange={handleChange}
-          type="datetime-local"
-          name="meeting_datetime"
-        />
-        <label>Location</label>
-        <input
-          value={formData.location}
-          onChange={handleChange}
-          type="text"
-          name="location"
-        />
-        <button type="submit">Create Meeting</button>
-        {errors.map((err) => err)}
-      </form>
-      <ul>
-        {user.meetings.map((meeting) => (
-          <li key={meeting.id}>
-            <Link to={`/meetings/${meeting.id}`}>
-              {meeting.meeting_datetime}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+      <NewMeetingForm />
 
-export { MeetingsPage };
-
-
-
-const people = [
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  // More people...
-]
-
-export default function Example() {
-  return (
-    <div className="px-4 sm:px-6 lg:px-8">
+      <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
-        <div className="sm:flex-auto">
-          <h1 className="text-base font-semibold leading-6 text-gray-900">Users</h1>
-          <p className="mt-2 text-sm text-gray-700">
-            A list of all the users in your account including their name, title, email and role.
-          </p>
-        </div>
-        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <button
-            type="button"
-            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Add user
-          </button>
-        </div>
       </div>
       <div className="mt-8 flow-root">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -144,17 +26,23 @@ export default function Example() {
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
-                  <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                    Name
+                  <th
+                    scope="col"
+                    className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                  >
+                    Meeting Date
                   </th>
-                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Title
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Location
                   </th>
-                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Email
-                  </th>
-                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Role
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Organizer
                   </th>
                   <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                     <span className="sr-only">Edit</span>
@@ -162,17 +50,25 @@ export default function Example() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {people.map((person) => (
-                  <tr key={person.email}>
+                {user.meetings.map((meeting) => (
+                  <tr key={meeting.id}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                      {person.name}
+                    <Link to={`/meetings/${meeting.id}`}>
+              {meeting.meeting_datetime}
+            </Link>
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.title}</td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.email}</td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.role}</td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      {meeting.location}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      {meeting.organizer_id}
+                    </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                      <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                        Edit<span className="sr-only">, {person.name}</span>
+                      <a
+                        href="#"
+                        className="text-indigo-600 hover:text-indigo-900"
+                      >
+                        Edit<span className="sr-only">, {meeting.meeting_datetime}</span>
                       </a>
                     </td>
                   </tr>
@@ -183,5 +79,19 @@ export default function Example() {
         </div>
       </div>
     </div>
-  )
+
+      {/* <ul>
+        {user.meetings.map((meeting) => (
+          <li key={meeting.id}>
+            <Link to={`/meetings/${meeting.id}`}>
+              {meeting.meeting_datetime}
+            </Link>
+          </li>
+        ))}
+      </ul> */}
+
+    </div>
+  );
 }
+
+export { MeetingsPage };
