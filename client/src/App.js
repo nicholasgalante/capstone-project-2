@@ -7,6 +7,7 @@ import { MeetingDetailPage } from "./pages/MeetingDetailPage.js";
 import { HomePage } from "./pages/HomePage.js";
 import { SignInPage } from "./pages/SignInPage.js";
 import { Dashboard } from "./pages/Dashboard.js";
+import { Calendar } from "./components/Calendar.js";
 
 function App() {
   return (
@@ -31,6 +32,23 @@ function App() {
               <>
                 <Navbar />
                 <MeetingDetailPage />
+              </>
+            }
+          />
+          <Route 
+            path="/calendar"
+            element={
+              <>
+                <Navbar />
+                <Calendar />
+              </>
+            }
+          />
+          <Route
+            path="/resources"
+            element={
+              <>
+                <Navbar />
               </>
             }
           />
