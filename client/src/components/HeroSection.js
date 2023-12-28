@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Dialog } from "@headlessui/react";
 import {
@@ -9,11 +9,15 @@ import {
   ServerIcon,
   StarIcon,
 } from "@heroicons/react/24/outline";
+import { UserContext } from "../context/UserContext";
+
 
 const navigation = [{ name: "Log in", href: "#" }];
 
 function Hero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, setUser } = useContext(UserContext);
+
 
   return (
     <div className="relative bg-white">
@@ -45,7 +49,7 @@ function Hero() {
               </a></Link>
               <Link to="/signin">
                 <a className="text-sm font-semibold leading-6 text-gray-900">
-                  Sign In <span aria-hidden="true">→</span>
+                {user? <Link to="/meetings">Go to Dashboard</Link> : <Link to="/signin">"Sign In"</Link>} <span aria-hidden="true">→</span>
                 </a>
               </Link>
             </div>
