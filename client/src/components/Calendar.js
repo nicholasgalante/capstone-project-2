@@ -24,9 +24,9 @@ function Calendar() {
    let firstDayCurrentMonth = parse(currentMonth, 'MMMM-yyyy', new Date())
    
 
-   let newDays = eachDayOfInterval({start: firstDayCurrentMonth, end: endOfWeek(endOfMonth(firstDayCurrentMonth))})
+   let newDays = eachDayOfInterval({start: firstDayCurrentMonth, end: endOfMonth(firstDayCurrentMonth)})
+   
  console.log(selectedDay)
-
 console.log(currentMonth)
 
  function nextMonth(){
@@ -34,18 +34,23 @@ console.log(currentMonth)
    setCurrentMonth(format(firstDayNextMonth, 'MMMM-yyyy'))
  }
 
+ function previousMonth(){
+   let firstDayNextMonth = add(firstDayCurrentMonth, {months: -1})
+   setCurrentMonth(format(firstDayNextMonth, 'MMMM-yyyy'))
+ }
 
 
   return (
     <div className="lg:flex lg:h-full lg:flex-col">
       <header className="flex items-center justify-between border-b border-gray-200 px-6 py-4 lg:flex-none">
         <h1 className="text-base font-semibold leading-6 text-gray-900">
-          <time dateTime="2022-01">{format(today, 'MMMMMMM yyyy')}</time>
+          <time dateTime="2022-01">{format(currentMonth,"MMMM yyyy" )}</time>
         </h1>
-        {/* Filter Dates */}
+        {/* Filter Dates Expanded View */}
         <div className="flex items-center">
           <div className="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">
             <button
+            onClick={previousMonth}
               type="button"
               className="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"
             >
@@ -68,6 +73,8 @@ console.log(currentMonth)
               <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
             </button>
           </div>
+
+            {/* Filter Dates Mobile View */}
           <div className="hidden md:ml-4 md:flex md:items-center">
             <Menu as="div" className="relative">
               <Menu.Button
@@ -153,6 +160,8 @@ console.log(currentMonth)
               Add event
             </button>
           </div>
+
+
           <Menu as="div" className="relative ml-6 md:hidden">
             <Menu.Button className="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500">
               <span className="sr-only">Open menu</span>
@@ -260,6 +269,7 @@ console.log(currentMonth)
       </header>
     
       <div className="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
+        
         {/* Days of the week */}
         <div className="grid grid-cols-7 gap-px border-b border-gray-300 bg-gray-200 text-center text-xs font-semibold leading-6 text-gray-700 lg:flex-none">
           <div className="bg-white py-2">
@@ -287,7 +297,7 @@ console.log(currentMonth)
 
         {/* Days grid expanded view*/}
         <div className="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
-          <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
+          <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-5 lg:gap-px">
             {newDays.map((day, dayIdx) => (
             <button
                 onClick={() => setSelectedDay(day)}
@@ -299,8 +309,8 @@ console.log(currentMonth)
                   (isEqual(day, selectedDay) || isToday(day)) && 'font-semibold',
                   isEqual(day, selectedDay) && 'text-white',
                   !isEqual(day, selectedDay) && isToday(day) && 'text-indigo-600',
-                  !isEqual(day, selectedDay) && isSameMonth(day, today) && !isToday(day) && 'text-gray-900',
-                  !isEqual(day, selectedDay) && !isSameMonth(day, today) && !isToday(day) && 'text-gray-500',
+                  !isEqual(day, selectedDay) && isSameMonth(day, firstDayCurrentMonth) && !isToday(day) && 'text-gray-900',
+                  !isEqual(day, selectedDay) && !isSameMonth(day, firstDayCurrentMonth) && !isToday(day) && 'text-gray-500',
                   'flex h-14 flex-col px-3 py-2 hover:bg-gray-100 focus:z-10'
                 )
                }
@@ -344,13 +354,14 @@ console.log(currentMonth)
           </div>
          
          {/* Days Grid Mobile View */}
-          <div className="isolate grid w-full grid-cols-7 grid-rows-6 gap-px lg:hidden">
+          <div className="isolate grid w-full grid-cols-7 grid-rows-5 gap-px lg:hidden">
             {newDays.map((day) => (
               <button
                 onClick={() => setSelectedDay(day)}
                 key={day.toString()}
                 type="button"
                 className={classNames(
+                  colStartClasses[getDay(day)],
                   isSameMonth(day, today) ? 'bg-white' : 'bg-gray-50',
                   (isEqual(day, selectedDay) || isToday(day)) && 'font-semibold',
                   isEqual(day, selectedDay) && 'text-white',
