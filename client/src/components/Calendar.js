@@ -8,7 +8,7 @@ import {
   EllipsisHorizontalIcon,
 } from '@heroicons/react/20/solid'
 import { Menu, Transition } from '@headlessui/react'
-import {eachDayOfInterval, format, startOfMonth, endOfMonth, startOfToday, isToday, isSameMonth, isEqual, getDate, endOfWeek, parse, add, set } from 'date-fns'
+import {eachDayOfInterval, format, startOfMonth, endOfMonth, startOfToday, isToday, isSameMonth, isEqual, getDate, endOfWeek, parse, add, set, getDay } from 'date-fns'
 
 
 function classNames(...classes) {
@@ -288,13 +288,13 @@ console.log(currentMonth)
         {/* Days grid expanded view*/}
         <div className="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
           <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
-            {newDays.map((day) => (
-            <div key={day.date} className={classNames(dayIdx > 6 && 'border-t border-gray-200', 'py-2')}>
+            {newDays.map((day, dayIdx) => (
             <button
                 onClick={() => setSelectedDay(day)}
                 key={day.toString()}
                 type="button"
                 className={classNames(
+                  colStartClasses[getDay(day)],
                   isSameMonth(day, today) ? 'bg-white' : 'bg-gray-50',
                   (isEqual(day, selectedDay) || isToday(day)) && 'font-semibold',
                   isEqual(day, selectedDay) && 'text-white',
@@ -339,7 +339,7 @@ console.log(currentMonth)
                 )} */}
               {/* </div> */}
               </button>
-              </div>
+            // </div>
             ))}
           </div>
          
@@ -418,3 +418,13 @@ console.log(currentMonth)
 }
 
 export { Calendar };
+
+let colStartClasses = [
+   "",
+   "col-start-1",
+   "col-start-2",
+   "col-start-3",
+   "col-start-4",
+   "col-start-5",
+   "col-start-6",
+]
