@@ -73,7 +73,9 @@ function Calendar() {
   }
 
   return (
-    <div className="lg:flex lg:h-full lg:flex-col">
+   <div  className={"flex justify-center"}>
+    <div className=" mt-5 max-w-7xl ml-10 mr-10 lg:flex lg:h-full lg:flex-col">
+
       <header className="flex items-center justify-between border-b border-gray-200 px-6 py-4 lg:flex-none">
         <h1 className="text-base font-semibold leading-6 text-gray-900">
           <time dateTime="2022-01">{format(currentMonth, "MMMM yyyy")}</time>
@@ -90,6 +92,10 @@ function Calendar() {
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </button>
             <button
+              onClick={() => {
+                setCurrentMonth(format(today, "MMMM-yyyy"));
+                setSelectedDay(today);
+              }}
               type="button"
               className="hidden border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative md:block"
             >
@@ -106,95 +112,7 @@ function Calendar() {
             </button>
           </div>
 
-          {/* Filter Dates Mobile View */}
           <div className="hidden md:ml-4 md:flex md:items-center">
-            <Menu as="div" className="relative">
-              <Menu.Button
-                type="button"
-                className="flex items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-              >
-                Month view
-                <ChevronDownIcon
-                  className="-mr-1 h-5 w-5 text-gray-400"
-                  aria-hidden="true"
-                />
-              </Menu.Button>
-
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <Menu.Items className="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <div className="py-1">
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "block px-4 py-2 text-sm"
-                          )}
-                        >
-                          Day view
-                        </a>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "block px-4 py-2 text-sm"
-                          )}
-                        >
-                          Week view
-                        </a>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "block px-4 py-2 text-sm"
-                          )}
-                        >
-                          Month view
-                        </a>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "block px-4 py-2 text-sm"
-                          )}
-                        >
-                          Year view
-                        </a>
-                      )}
-                    </Menu.Item>
-                  </div>
-                </Menu.Items>
-              </Transition>
-            </Menu>
             <div className="ml-6 h-6 w-px bg-gray-300" />
             <button
               type="button"
@@ -204,6 +122,7 @@ function Calendar() {
             </button>
           </div>
 
+          {/* Filter Dates Mobile View */}
           <Menu as="div" className="relative ml-6 md:hidden">
             <Menu.Button className="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500">
               <span className="sr-only">Open menu</span>
@@ -349,8 +268,8 @@ function Calendar() {
         </div>
 
         {/* Days grid expanded view*/}
-        <div className="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
-          <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-5 lg:gap-px">
+        <div className="flex bg-dd text-xs  bg-gray-100 leading-6 text-gray-700 lg:flex-auto">
+          <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-5 lg:gap-px ">
             {days.map((day, dayIdx) => (
               <button
                 onClick={() => setSelectedDay(day)}
@@ -358,7 +277,6 @@ function Calendar() {
                 type="button"
                 className={classNames(
                   colStartClasses[getDay(day)],
-                  isSameMonth(day, today) ? "bg-white" : "bg-gray-50",
                   (isEqual(day, selectedDay) || isToday(day)) &&
                     "font-semibold",
                   isEqual(day, selectedDay) && "text-white",
@@ -373,13 +291,13 @@ function Calendar() {
                     !isSameMonth(day, firstDayCurrentMonth) &&
                     !isToday(day) &&
                     "text-gray-500",
-                  "flex h-20 flex-col px-3 py-2 hover:bg-gray-100 focus:z-10"
+                  "flex h-20 flex-col px-3 py-2 bg-white hover:bg-gray-100 focus:z-10 "
                 )}
               >
                 <time
                   dateTime={format(day, "yyyy-MM-dd")}
                   className={
-                    isToday(day)
+                    isEqual(day, selectedDay)
                       ? "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white"
                       : undefined
                   }
@@ -387,13 +305,11 @@ function Calendar() {
                   {format(day, "d")}
                 </time>
                 {/* Render Events */}
-                {isDatetimeInMeetings(day)
-                  ? 
+                {isDatetimeInMeetings(day) ? (
                   <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">
-                      {"Meeting"}
-                    </p>
-                
-                  : null}
+                    {"Meeting"}
+                  </p>
+                ) : null}
                 {/* {day.events.length > 0 && (
                   <ol className="mt-2">
                     {day.events.slice(0, 2).map((event) => (
@@ -502,6 +418,7 @@ function Calendar() {
           </ol>
         </div>
       )} */}
+      </div>
     </div>
   );
 }
