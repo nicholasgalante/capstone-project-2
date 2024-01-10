@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { format } from "date-fns";
 
 function MeetingDetailPage() {
@@ -26,8 +26,16 @@ function MeetingDetailPage() {
     (meeting) => meeting.id === parseInt(meetingID)
   );
 
-  const { meeting_datetime, location, topics_discussed, next_steps } =
-    selectedMeeting;
+  const {
+    meeting_datetime,
+    location,
+    topics_discussed,
+    next_steps,
+    resources,
+  } = selectedMeeting;
+
+
+  console.log(resources)
 
   //CONTINUE HERE - handle submit and edit form for meeting details***
   function handleSubmit() {
@@ -66,7 +74,6 @@ function MeetingDetailPage() {
                   >
                     Save
                   </button>
-
                 </div>
               </div>
 
@@ -153,14 +160,31 @@ function MeetingDetailPage() {
                     defaultValue={next_steps}
                   />
                 </div>
+
+                <label
+                  htmlFor="comment"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Resources:
+                </label>
+
+                <div className="mt-2">
+                  {resources.length > 0 &&
+                    resources.map((resource, index) => (
+
+                      <Link to={`/resources/${resource.id}`}><button
+                        key={index}
+                        className="ml-2 rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
+                      >
+                        {resource.title}
+                      </button></Link>
+                    ))}
+                </div>
               </div>
             </div>
           ) : (
             <div>
-
-
-
-<div className="flex items-center justify-between">
+              <div className="flex items-center justify-between">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                   <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
                     Meeting Log
@@ -168,19 +192,14 @@ function MeetingDetailPage() {
                 </div>
 
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <button
-                onClick={handleEdit}
-                className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Edit
-              </button>
+                  <button
+                    onClick={handleEdit}
+                    className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Edit
+                  </button>
                 </div>
               </div>
-
-
-
-
- 
 
               <label
                 htmlFor="comment"
