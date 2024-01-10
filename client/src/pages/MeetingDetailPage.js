@@ -47,33 +47,140 @@ function MeetingDetailPage() {
   }
 
   return (
-    <div className="py-10">
-      <header>
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
-            Meeting Log
-          </h1>
-        </div>
-      </header>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
       <main>
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           {updating ? (
             <div>
-              <button onClick={handleSubmit}>Save</button>
-              <button onClick={handleEdit}>Cancel</button>
-              <h1>Meeting Details</h1>
-              <h2>Meeting Date and Time:</h2>
-              <p>{meeting_datetime}</p>
-              <h2>Meeting Location:</h2>
-              <input type="text" value={location} />
-              <h2>Topics Discussed:</h2>
-              <input type="text" value={topics_discussed} />
-              <h2>Next Steps:</h2>
-              <input type="text" value={next_steps} />
+              <div className="flex items-center justify-between">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                  <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
+                    Meeting Log
+                  </h1>
+                </div>
+
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                  <button
+                    onClick={handleSubmit}
+                    className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Save
+                  </button>
+
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="comment"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Date Scheduled
+                </label>
+                <div className="mt-2">
+                  <textarea
+                    rows={1}
+                    name="comment"
+                    id="comment"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    defaultValue={format(
+                      new Date(meeting_datetime),
+                      "EEEE, MMMM do, yyyy"
+                    )}
+                  />
+                </div>
+
+                <label
+                  htmlFor="comment"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Time Scheduled
+                </label>
+                <div className="mt-2">
+                  <textarea
+                    rows={1}
+                    name="comment"
+                    id="comment"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    defaultValue={format(new Date(meeting_datetime), "h:mm a")}
+                  />
+                </div>
+
+                <label
+                  htmlFor="comment"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Location
+                </label>
+                <div className="mt-2">
+                  <textarea
+                    rows={1}
+                    name="comment"
+                    id="comment"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    defaultValue={location}
+                  />
+                </div>
+
+                <label
+                  htmlFor="comment"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Topics Discussed
+                </label>
+                <div className="mt-2">
+                  <textarea
+                    rows={4}
+                    name="comment"
+                    id="comment"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    defaultValue={topics_discussed}
+                  />
+                </div>
+
+                <label
+                  htmlFor="comment"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Next Steps:
+                </label>
+                <div className="mt-2">
+                  <textarea
+                    rows={4}
+                    name="comment"
+                    id="comment"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    defaultValue={next_steps}
+                  />
+                </div>
+              </div>
             </div>
           ) : (
             <div>
-              <button onClick={handleEdit}>Edit</button>
+
+
+
+<div className="flex items-center justify-between">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                  <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
+                    Meeting Log
+                  </h1>
+                </div>
+
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <button
+                onClick={handleEdit}
+                className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Edit
+              </button>
+                </div>
+              </div>
+
+
+
+
+ 
 
               <label
                 htmlFor="comment"
@@ -83,12 +190,15 @@ function MeetingDetailPage() {
               </label>
               <div className="mt-2">
                 <textarea
-                  rows={4}
+                  rows={1}
                   name="comment"
                   id="comment"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  defaultValue={format(new Date(meeting_datetime), "EEEE, MMMM do, yyyy")}
-                  readOnly 
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
+                  defaultValue={format(
+                    new Date(meeting_datetime),
+                    "EEEE, MMMM do, yyyy"
+                  )}
+                  readOnly
                 />
               </div>
 
@@ -96,19 +206,18 @@ function MeetingDetailPage() {
                 htmlFor="comment"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Time Scheduled``
+                Time Scheduled
               </label>
               <div className="mt-2">
                 <textarea
-                  rows={4}
+                  rows={1}
                   name="comment"
                   id="comment"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                   defaultValue={format(new Date(meeting_datetime), "h:mm a")}
-                  readOnly 
+                  readOnly
                 />
               </div>
-
 
               <label
                 htmlFor="comment"
@@ -118,12 +227,12 @@ function MeetingDetailPage() {
               </label>
               <div className="mt-2">
                 <textarea
-                  rows={4}
+                  rows={1}
                   name="comment"
                   id="comment"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                   defaultValue={location}
-                  readOnly 
+                  readOnly
                 />
               </div>
 
@@ -138,18 +247,28 @@ function MeetingDetailPage() {
                   rows={4}
                   name="comment"
                   id="comment"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  defaultValue={format(new Date(meeting_datetime), "h:mm a")}
-                  readOnly 
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
+                  defaultValue={topics_discussed}
+                  readOnly
                 />
               </div>
 
-              <h2>Topics Discussed:</h2>
-              <p>{topics_discussed}</p>
-              <h2>Next Steps:</h2>
-              <p>{next_steps}</p>
-
-
+              <label
+                htmlFor="comment"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Next Steps:
+              </label>
+              <div className="mt-2">
+                <textarea
+                  rows={4}
+                  name="comment"
+                  id="comment"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
+                  defaultValue={next_steps}
+                  readOnly
+                />
+              </div>
             </div>
           )}
         </div>
@@ -160,9 +279,8 @@ function MeetingDetailPage() {
 
 export { MeetingDetailPage };
 
-
-
-{/* 
+{
+  /* 
 <label htmlFor="comment" className="block text-sm font-medium leading-6 text-gray-900">
 Add your comment
 </label>
@@ -175,4 +293,5 @@ Add your comment
   defaultValue={''}
 />
 </div> 
-*/} 
+*/
+}
