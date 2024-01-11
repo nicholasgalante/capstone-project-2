@@ -39,7 +39,7 @@ function MeetingDetailPage() {
 
   //CONTINUE HERE - handle submit and edit form for meeting details***
   function handleSubmit() {
-    fetch(`/api/meetings/${meetingID}`, {
+    fetch(`/meetings/${meetingID}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -172,7 +172,7 @@ function MeetingDetailPage() {
                   {resources.length > 0 &&
                     resources.map((resource, index) => (
 
-                      <Link to={`/resources/${resource.id}`}><button
+                      <Link to={resource.url} target="_blank"><button
                         key={index}
                         className="ml-2 rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
                       >
@@ -288,6 +288,27 @@ function MeetingDetailPage() {
                   readOnly
                 />
               </div>
+
+
+              <label
+                  htmlFor="comment"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Resources:
+                </label>
+
+              <div className="mt-2">
+                  {resources.length > 0 &&
+                    resources.map((resource, index) => (
+
+                      <Link to={resource.url} target="_blank"><button
+                        key={index}
+                        className="ml-2 rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
+                      >
+                        {resource.title}
+                      </button></Link>
+                    ))}
+                </div>
             </div>
           )}
         </div>
