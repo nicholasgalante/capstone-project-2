@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { UserContext } from "../context/UserContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -45,17 +45,40 @@ function Navbar() {
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
 
-                  <a className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900">
-                    <Link to="/meetings">Meetings</Link>
-                  </a>
+                  <NavLink
+                    to="/meetings"
+                    className={({ isActive }) =>
+                      isActive
+                        ? " inline-flex items-center border-b-2  border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900"
+                        : "inline-flex items-center border-b-2  border-transparent px-1 pt-1 text-sm font-medium text-gray-900"
+                    }
+                  >
+                    Meetings
+                  </NavLink>
 
-                  <a className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
-                    <Link to="/calendar">Calendar</Link>
-                  </a>
+                  <NavLink
+                    to="/calendar"
+                    className={({ isActive }) =>
+                      isActive
+                        ? " inline-flex items-center border-b-2  border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900"
+                        : "inline-flex items-center border-b-2  border-transparent px-1 pt-1 text-sm font-medium text-gray-900"
+                    }
+                  >
+                    {" "}
+                    Calendar
+                  </NavLink>
 
-                  <a className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
-                    <Link to="/resources"> Resources</Link>
-                  </a>
+                  <NavLink
+                    to="/resources"
+                    className={({ isActive }) =>
+                      isActive
+                        ? " inline-flex items-center border-b-2  border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900"
+                        : "inline-flex items-center border-b-2  border-transparent px-1 pt-1 text-sm font-medium text-gray-900"
+                    }
+                  >
+                    {" "}
+                    Resources
+                  </NavLink>
                 </div>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
