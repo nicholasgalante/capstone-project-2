@@ -10,6 +10,12 @@ class MeetingsController < ApplicationController
       render json: meeting, status: :ok
    end
 
+   def update
+      meeting = Meeting.find(params[:id])
+      meeting.update!(meeting_params)
+      render json: meeting, status: :ok
+   end
+
    def create
       meeting = Meeting.create!(meeting_params)
       render json: meeting, status: :created
