@@ -33,7 +33,7 @@ function SignInPage() {
         r.json().then((user) => {
           console.log(user);
           setUser(user);
-          navigate("/dashboard");
+          navigate("/meetings");
         });
       } else {
         r.json().then((err) => console.log(err.errors));
