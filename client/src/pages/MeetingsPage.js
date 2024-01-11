@@ -19,10 +19,10 @@ function MeetingsPage() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Meeting Log
+            Welcome, {user.first_name}!
           </h1>
           <p className="mt-2 text-sm text-gray-700">
-            View your upcoming and past meetings here. 
+            View your upcoming or past meetings here.
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
@@ -72,7 +72,7 @@ function MeetingsPage() {
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {user.meetings.map((meeting) => (
                     <tr key={meeting.id}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-indigo-600 sm:pl-6">
                         <Link to={`/meetings/${meeting.id}`}>
                           {format(
                             meeting.meeting_datetime,
@@ -87,17 +87,10 @@ function MeetingsPage() {
                         {meeting.location}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {meeting.organizer_id}
+                        {meeting.organizer_id === user.id ? user.first_name : user.student.first_name}
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                        {/* <a
-                          href="#"
-                          className="text-indigo-600 hover:text-indigo-900"
-                        >
-                          Edit<span className="sr-only">, {meeting.meeting_datetime}</span>
-                        </a> */}
-
-                        <PencilSquareIcon className="mt-1 h-5 w-5 flex-none text-gray-500"/>
+                        <PencilSquareIcon className="mt-1 h-5 w-5 flex-none text-gray-400"/>
                       </td>
                     </tr>
                   ))}
