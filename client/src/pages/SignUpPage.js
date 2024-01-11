@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { StudentSignUpForm } from "../components/StudentSignUpForm";
 import { MentorSignUpForm } from "../components/MentorSignUpForm";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -9,6 +10,14 @@ function classNames(...classes) {
 
 function SignUpPage() {
   const [userType, setUserType] = useState("student");
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/meetings");
+    }
+  }, [user, navigate]);
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
