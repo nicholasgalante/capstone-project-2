@@ -3,6 +3,7 @@ import { Link, redirect } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { NewMeetingForm } from "../components/NewMeetingForm";
 import { format } from "date-fns";
+import { PencilSquareIcon } from '@heroicons/react/20/solid'
 
 function MeetingsPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,20 +19,15 @@ function MeetingsPage() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Users
+            Meeting Log
           </h1>
           <p className="mt-2 text-sm text-gray-700">
-            A list of all the users in your account including their name, title,
-            email and role.
+            View your upcoming and past meetings here. 
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <button
-            type="button"
-            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Schedule New Meeting
-          </button>
+          <NewMeetingForm />
+          
         </div>
       </div>
       <div className="mt-8 flow-root">
@@ -94,12 +90,14 @@ function MeetingsPage() {
                         {meeting.organizer_id}
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                        <a
+                        {/* <a
                           href="#"
                           className="text-indigo-600 hover:text-indigo-900"
                         >
                           Edit<span className="sr-only">, {meeting.meeting_datetime}</span>
-                        </a>
+                        </a> */}
+
+                        <PencilSquareIcon className="mt-1 h-5 w-5 flex-none text-gray-500"/>
                       </td>
                     </tr>
                   ))}
