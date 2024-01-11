@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
@@ -11,9 +11,11 @@ function SignInPage() {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  if (user) {
-      navigate("/dashboard")
-   }
+  useEffect(() => {
+    if (user) {
+      navigate("/meetings");
+    }
+  }, [user, navigate]);
 
   function handleSubmit(e) {
     e.preventDefault();
