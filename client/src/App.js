@@ -8,6 +8,7 @@ import { HomePage } from "./pages/HomePage.js";
 import { SignInPage } from "./pages/SignInPage.js";
 import { Dashboard } from "./pages/Dashboard.js";
 import { Calendar } from "./components/Calendar.js";
+import { ResourcesList } from "./components/ResourcesList.js";
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
               </>
             }
           />
-          <Route 
+          <Route
             path="/calendar"
             element={
               <>
@@ -49,6 +50,7 @@ function App() {
             element={
               <>
                 <Navbar />
+                <ResourcesList />
               </>
             }
           />
