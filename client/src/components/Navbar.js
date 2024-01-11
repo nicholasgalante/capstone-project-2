@@ -14,6 +14,7 @@ function Navbar() {
   const navigate = useNavigate();
 
   function handleSignOut() {
+    console.log("SIGNED OUT");
     fetch("/logout", {
       method: "DELETE",
       credentials: "include",
@@ -33,33 +34,28 @@ function Navbar() {
             <div className="flex h-16 justify-between">
               <div className="flex">
                 <div className="flex flex-shrink-0 items-center">
-                  <Link to="/"><img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt="Your Company"
-                  /></Link>
+                  <Link to="/">
+                    <img
+                      className="h-8 w-auto"
+                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                      alt="Your Company"
+                    />
+                  </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-                  
-                    <a
-                      className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900"
-                    >
-                      <Link to="/meetings">Meetings</Link>
-                    </a>
-                  
-                  
-                    <a
-                      className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                    >
-                      <Link to="/calendar">Calendar</Link>
-                    </a>
-                  
-                  
-                    <a className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+
+                  <a className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900">
+                    <Link to="/meetings">Meetings</Link>
+                  </a>
+
+                  <a className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                    <Link to="/calendar">Calendar</Link>
+                  </a>
+
+                  <a className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
                     <Link to="/resources"> Resources</Link>
-                    </a>
-                  
+                  </a>
                 </div>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
@@ -69,7 +65,7 @@ function Navbar() {
                 >
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
                 </button>
 
                 {/* Profile dropdown */}
@@ -124,7 +120,7 @@ function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
+                            onClick={handleSignOut}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
@@ -208,7 +204,7 @@ function Navbar() {
                 >
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
                 </button>
               </div>
               <div className="mt-3 space-y-1">
@@ -228,8 +224,8 @@ function Navbar() {
                 </Disclosure.Button>
                 <Disclosure.Button
                   as="a"
-                  href="#"
                   className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                  onClick={handleSignOut}
                 >
                   Sign out
                 </Disclosure.Button>
