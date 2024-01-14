@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { useParams, Link } from "react-router-dom";
 import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 function MeetingDetailPage() {
   const [meetingData, setMeetingData] = useState({
@@ -13,6 +14,8 @@ function MeetingDetailPage() {
   const [updating, setUpdating] = useState(false);
   const { meetingID } = useParams();
   const { user, setUser } = useContext(UserContext);
+  const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
 
   if (!user) {
     return <div>Please sign in to view meetings.</div>;
@@ -53,6 +56,27 @@ function MeetingDetailPage() {
         setUpdating(false);
       });
   }
+  function handleDelete() {
+    fetch(`/meetings/${meetingID}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((data) => {
+        if (data.errors) {
+          setErrors(data.errors);
+        } else {
+          setUser({
+            ...user,
+            meetings: user.meetings.filter(
+              (meeting) => meeting.id !== parseInt(meetingID)
+            ),
+          });
+          navigate("/meetings")
+        }
+      })
+  }
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
@@ -73,6 +97,12 @@ function MeetingDetailPage() {
                     className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     Save
+                  </button>
+                  <button
+                    onClick={handleDelete}
+                    className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Delete Meeting
                   </button>
                 </div>
               </div>
