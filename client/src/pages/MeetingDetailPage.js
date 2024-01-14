@@ -19,6 +19,8 @@ function MeetingDetailPage() {
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
+  console.log("UPDATED DATA", updatedData);
+
   useEffect(() => {
     fetch(`/meetings/${meetingID}`)
       .then((response) => response.json())
@@ -38,7 +40,6 @@ function MeetingDetailPage() {
     resources,
   } = meetingData;
 
-
   if (!user || !resources) {
     return <div>Loading...</div>;
   }
@@ -47,17 +48,15 @@ function MeetingDetailPage() {
     setUpdating(!updating);
   }
 
-
   console.log(resources);
 
-  //CONTINUE HERE - handle submit and edit form for meeting details***
-  function handleSubmit() {
+  function handleSaveChanges() {
     fetch(`/meetings/${meetingID}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(meetingData),
+      body: JSON.stringify({ meeting: { ...updatedData } }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -66,6 +65,13 @@ function MeetingDetailPage() {
         setUpdating(false);
       });
   }
+
+  const handleFieldChange = (fieldName, value) => {
+    setUpdatedData((prevData) => ({
+      ...prevData,
+      [fieldName]: value,
+    }));
+  };
 
   function handleDelete() {
     fetch(`/meetings/${meetingID}`, {
@@ -103,7 +109,7 @@ function MeetingDetailPage() {
 
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                   <button
-                    onClick={handleSubmit}
+                    onClick={handleSaveChanges}
                     className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     Save
@@ -130,10 +136,11 @@ function MeetingDetailPage() {
                     name="comment"
                     id="comment"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    // defaultValue={format(
-                    //   new Date(meeting_datetime),
-                    //   "EEEE, MMMM do, yyyy"
-                    // )}
+                    defaultValue={format(
+                      new Date(meeting_datetime),
+                      "EEEE, MMMM do, yyyy"
+                    )}
+                    readOnly
                   />
                 </div>
 
@@ -149,7 +156,8 @@ function MeetingDetailPage() {
                     name="comment"
                     id="comment"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    // defaultValue={format(new Date(meeting_datetime), "h:mm a")}
+                    defaultValue={format(new Date(meeting_datetime), "h:mm a")}
+                    readOnly
                   />
                 </div>
 
@@ -166,6 +174,10 @@ function MeetingDetailPage() {
                     id="comment"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={location}
+                    value={updatedData.location}
+                    onChange={(e) =>
+                      handleFieldChange("location", e.target.value)
+                    }
                   />
                 </div>
 
@@ -182,6 +194,10 @@ function MeetingDetailPage() {
                     id="comment"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={topics_discussed}
+                    value={updatedData.topics_discussed}
+                    onChange={(e) =>
+                      handleFieldChange("topics_discussed", e.target.value)
+                    }
                   />
                 </div>
 
@@ -198,6 +214,10 @@ function MeetingDetailPage() {
                     id="comment"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={next_steps}
+                    value={updatedData.next_steps}
+                    onChange={(e) =>
+                      handleFieldChange("next_steps", e.target.value)
+                    }
                   />
                 </div>
 
@@ -237,7 +257,7 @@ function MeetingDetailPage() {
                     onClick={handleEdit}
                     className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    Edit
+                    Update Meeting Log
                   </button>
                 </div>
               </div>
@@ -254,10 +274,10 @@ function MeetingDetailPage() {
                   name="comment"
                   id="comment"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
-                  // defaultValue={format(
-                  //   new Date(meeting_datetime),
-                  //   "EEEE, MMMM do, yyyy"
-                  // )}
+                  defaultValue={format(
+                    new Date(meeting_datetime),
+                    "EEEE, MMMM do, yyyy"
+                  )}
                   readOnly
                 />
               </div>
@@ -274,7 +294,7 @@ function MeetingDetailPage() {
                   name="comment"
                   id="comment"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
-                  // defaultValue={format(new Date(meeting_datetime), "h:mm a")}
+                  defaultValue={format(new Date(meeting_datetime), "h:mm a")}
                   readOnly
                 />
               </div>
