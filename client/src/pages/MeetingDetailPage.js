@@ -5,29 +5,30 @@ import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 
 function MeetingDetailPage() {
-  const [meetingData, setMeetingData] = useState({
-    meeting_datetime: "",
-    location: "",
-    topics_discussed: "",
-    next_steps: "",
-  });
+  // const [meetingData, setMeetingData] = useState({
+  //   meeting_datetime: "",
+  //   location: "",
+  //   topics_discussed: "",
+  //   next_steps: "",
+  // });
+  const [meetingData, setMeetingData] = useState({});
+  const [updatedData, setUpdatedData] = useState({});
   const [updating, setUpdating] = useState(false);
   const { meetingID } = useParams();
   const { user, setUser } = useContext(UserContext);
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
-  if (!user) {
-    return <div>Please sign in to view meetings.</div>;
-  }
-
-  function handleEdit() {
-    setUpdating(!updating);
-  }
-
-  const selectedMeeting = user.meetings.find(
-    (meeting) => meeting.id === parseInt(meetingID)
-  );
+  useEffect(() => {
+    fetch(`/meetings/${meetingID}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMeetingData(data);
+        console.log("MEETING DATA", data);
+        setUpdatedData(data); // Initialize updatedData with the existing data
+      });
+    // }
+  }, [meetingID]);
 
   const {
     meeting_datetime,
@@ -35,10 +36,19 @@ function MeetingDetailPage() {
     topics_discussed,
     next_steps,
     resources,
-  } = selectedMeeting;
+  } = meetingData;
 
 
-  console.log(resources)
+  if (!user || !resources) {
+    return <div>Loading...</div>;
+  }
+
+  function handleEdit() {
+    setUpdating(!updating);
+  }
+
+
+  console.log(resources);
 
   //CONTINUE HERE - handle submit and edit form for meeting details***
   function handleSubmit() {
@@ -56,26 +66,26 @@ function MeetingDetailPage() {
         setUpdating(false);
       });
   }
+
   function handleDelete() {
     fetch(`/meetings/${meetingID}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-    })
-      .then((data) => {
-        if (data.errors) {
-          setErrors(data.errors);
-        } else {
-          setUser({
-            ...user,
-            meetings: user.meetings.filter(
-              (meeting) => meeting.id !== parseInt(meetingID)
-            ),
-          });
-          navigate("/meetings")
-        }
-      })
+    }).then((data) => {
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
+        setUser({
+          ...user,
+          meetings: user.meetings.filter(
+            (meeting) => meeting.id !== parseInt(meetingID)
+          ),
+        });
+        navigate("/meetings");
+      }
+    });
   }
 
   return (
@@ -120,10 +130,10 @@ function MeetingDetailPage() {
                     name="comment"
                     id="comment"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    defaultValue={format(
-                      new Date(meeting_datetime),
-                      "EEEE, MMMM do, yyyy"
-                    )}
+                    // defaultValue={format(
+                    //   new Date(meeting_datetime),
+                    //   "EEEE, MMMM do, yyyy"
+                    // )}
                   />
                 </div>
 
@@ -139,7 +149,7 @@ function MeetingDetailPage() {
                     name="comment"
                     id="comment"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    defaultValue={format(new Date(meeting_datetime), "h:mm a")}
+                    // defaultValue={format(new Date(meeting_datetime), "h:mm a")}
                   />
                 </div>
 
@@ -201,13 +211,14 @@ function MeetingDetailPage() {
                 <div className="mt-2">
                   {resources.length > 0 &&
                     resources.map((resource, index) => (
-
-                      <Link to={resource.url} target="_blank"><button
-                        key={index}
-                        className="ml-2 rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
-                      >
-                        {resource.title}
-                      </button></Link>
+                      <Link to={resource.url} target="_blank">
+                        <button
+                          key={index}
+                          className="ml-2 rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
+                        >
+                          {resource.title}
+                        </button>
+                      </Link>
                     ))}
                 </div>
               </div>
@@ -243,10 +254,10 @@ function MeetingDetailPage() {
                   name="comment"
                   id="comment"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
-                  defaultValue={format(
-                    new Date(meeting_datetime),
-                    "EEEE, MMMM do, yyyy"
-                  )}
+                  // defaultValue={format(
+                  //   new Date(meeting_datetime),
+                  //   "EEEE, MMMM do, yyyy"
+                  // )}
                   readOnly
                 />
               </div>
@@ -263,7 +274,7 @@ function MeetingDetailPage() {
                   name="comment"
                   id="comment"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
-                  defaultValue={format(new Date(meeting_datetime), "h:mm a")}
+                  // defaultValue={format(new Date(meeting_datetime), "h:mm a")}
                   readOnly
                 />
               </div>
@@ -319,26 +330,26 @@ function MeetingDetailPage() {
                 />
               </div>
 
-
               <label
-                  htmlFor="comment"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Resources:
-                </label>
+                htmlFor="comment"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Resources:
+              </label>
 
               <div className="mt-2">
-                  {resources.length > 0 &&
-                    resources.map((resource, index) => (
-
-                      <Link to={resource.url} target="_blank"><button
+                {resources.length > 0 &&
+                  resources.map((resource, index) => (
+                    <Link to={resource.url} target="_blank">
+                      <button
                         key={index}
                         className="ml-2 rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
                       >
                         {resource.title}
-                      </button></Link>
-                    ))}
-                </div>
+                      </button>
+                    </Link>
+                  ))}
+              </div>
             </div>
           )}
         </div>
