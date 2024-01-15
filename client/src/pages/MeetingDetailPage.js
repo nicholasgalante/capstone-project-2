@@ -42,7 +42,16 @@ function MeetingDetailPage() {
     setUpdating(!updating);
   }
 
-  console.log(resources);
+  
+  const handleResourceAdded = (newResource) => {
+    console.log("NEW RESOURCE", newResource)
+
+    setMeetingData({
+      ...meetingData,
+      resources: [...meetingData.resources, newResource],
+    });
+  };
+
 
   function handleSaveChanges() {
     fetch(`/meetings/${meetingID}`, {
@@ -219,7 +228,7 @@ function MeetingDetailPage() {
                   htmlFor="comment"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Resources: 
+                  Resources:
                 </label>
 
                 <div className="mt-2">
@@ -236,8 +245,7 @@ function MeetingDetailPage() {
                     ))}
                 </div>
 
-
-                <ResourcesList meetingId={meetingID}/>
+                <ResourcesList meetingId={meetingID} onResourceAdded={handleResourceAdded}/>
               </div>
             </div>
           ) : (
@@ -351,7 +359,7 @@ function MeetingDetailPage() {
                 htmlFor="comment"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Resources: 
+                Resources:
               </label>
 
               <div className="mt-2">
