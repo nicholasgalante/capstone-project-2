@@ -1,7 +1,6 @@
 class MeetingResourcesController < ApplicationController
 
    def create
-      debugger
       meeting_resource = MeetingResource.create!(meeting_resource_params)
       render json: meeting_resource, status: :created
    end
