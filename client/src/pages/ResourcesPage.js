@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { XMark } from "@heroicons/react/20/solid";
 
 function ResourcesPage() {
   const [resources, setResources] = useState([]);
@@ -17,7 +16,6 @@ function ResourcesPage() {
         setResources(data);
       });
   }, []);
-
 
   function handleSubmit() {
     fetch("/resources", {
@@ -41,24 +39,22 @@ function ResourcesPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-  function handleDelete(resourceId  ) {
-
+  function handleDelete(resourceId) {
     fetch(`/resources/${resourceId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-    })
-      // .then((data) => {
-      //   if (data.errors) {
-      //     setErrors(data.errors);
-      //   } else {
-      //     setResources(resources.filter((resource) => resource.id !== data.id));
-      //   }
-      // });
-      setResources(resources.filter((resource) => resource.id !== resourceId))
+    });
+    // .then((data) => {
+    //   if (data.errors) {
+    //     setErrors(data.errors);
+    //   } else {
+    //     setResources(resources.filter((resource) => resource.id !== data.id));
+    //   }
+    // });
+    setResources(resources.filter((resource) => resource.id !== resourceId));
   }
-
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
@@ -68,7 +64,7 @@ function ResourcesPage() {
             Resources
           </h1>
           <p className="mt-2 text-sm text-gray-700">
-            Resources are links to helpful websites or articles. <br/>
+            Resources are links to helpful websites or articles. <br />
             Once created, attach them to a meeting.
           </p>
         </div>
@@ -143,9 +139,12 @@ function ResourcesPage() {
                           </td>
                         </Link>
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                        <a className="text-gray-400 hover:text-red-500" onClick={()=>handleDelete(resource.id)}>
-                          Delete Resource
-                        </a>
+                          <a
+                            className="text-gray-400 hover:text-red-500"
+                            onClick={() => handleDelete(resource.id)}
+                          >
+                            Delete Resource
+                          </a>
                         </td>
                       </tr>
                     ))}
