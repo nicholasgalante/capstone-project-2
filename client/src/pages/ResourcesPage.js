@@ -68,13 +68,14 @@ function ResourcesPage() {
             Resources
           </h1>
           <p className="mt-2 text-sm text-gray-700">
-            Create resources to attach to your meetings.
+            Resources are links to helpful websites or articles. <br/>
+            Once created, attach them to a meeting.
           </p>
         </div>
 
         <div className="mt-10  sm:px-6 lg:px-8">
           <h1 className="text-base font-semibold leading-6 text-gray-900 mb-4">
-            Schedule a New Meeting
+            Create a New Resource
           </h1>
           <form onSubmit={handleSubmit} className="flex space-x-4">
             <div className="flex flex-col">
@@ -143,7 +144,7 @@ function ResourcesPage() {
                         </Link>
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                         <a className="text-gray-400 hover:text-red-500" onClick={()=>handleDelete(resource.id)}>
-                          Delete
+                          Delete Resource
                         </a>
                         </td>
                       </tr>
