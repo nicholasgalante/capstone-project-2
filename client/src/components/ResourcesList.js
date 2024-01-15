@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function ResourcesList({meetingId}) {
+function ResourcesList({meetingId, onResourceAdded}) {
   const [resources, setResources] = useState([]);
   const [errors, setErrors] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     url: "",
   });
-
-  console.log("MEETING ID",meetingId)
 
   useEffect(() => {
     fetch("/resources")
@@ -20,7 +18,7 @@ function ResourcesList({meetingId}) {
   }, []);
 
   function handleAdd(resourceId){
-    console.log(meetingId, resourceId)
+    console.log("RESOURCE ID", resourceId)
     fetch("/meeting_resources", {
       method: "POST",
       headers: {
@@ -33,7 +31,7 @@ function ResourcesList({meetingId}) {
         if (data.errors) {
           setErrors(data.errors);
         } else {
-          console.log(data)
+          onResourceAdded(resources.find((resource) => resource.id == resourceId))
         }
       });
   }
@@ -64,14 +62,14 @@ function ResourcesList({meetingId}) {
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {resources.length > 0 &&
                     resources.map((resource) => (
-                      <tr key={resource.email}>
+                      <tr key={resource.id}>
                         <Link to={resource.url} target="_blank">
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-indigo-600 hover:text-indigo-900">
                             {resource.title}
                           </td>
                         </Link>
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                        <a className="text-gray-400 hover:text-red-500" onClick={()=>handleAdd(resource.id)}>
+                        <a className="text-gray-400 hover:text-indigo-600" onClick={()=>handleAdd(resource.id)}>
                           Attach to Meeting
                         </a>
                         </td>
