@@ -14,6 +14,8 @@ function MeetingDetailPage() {
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
+  console.log(meetingID);
+
   useEffect(() => {
     fetch(`/meetings/${meetingID}`)
       .then((response) => response.json())
@@ -235,7 +237,7 @@ function MeetingDetailPage() {
                 </div>
 
 
-                <ResourcesList />
+                <ResourcesList meetingId={meetingID}/>
               </div>
             </div>
           ) : (
