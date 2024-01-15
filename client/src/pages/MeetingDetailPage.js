@@ -3,14 +3,9 @@ import { UserContext } from "../context/UserContext";
 import { useParams, Link } from "react-router-dom";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { ResourcesList } from "../components/ResourcesList";
 
 function MeetingDetailPage() {
-  // const [meetingData, setMeetingData] = useState({
-  //   meeting_datetime: "",
-  //   location: "",
-  //   topics_discussed: "",
-  //   next_steps: "",
-  // });
   const [meetingData, setMeetingData] = useState({});
   const [updatedData, setUpdatedData] = useState({});
   const [updating, setUpdating] = useState(false);
@@ -19,14 +14,11 @@ function MeetingDetailPage() {
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
-  console.log("UPDATED DATA", updatedData);
-
   useEffect(() => {
     fetch(`/meetings/${meetingID}`)
       .then((response) => response.json())
       .then((data) => {
         setMeetingData(data);
-        console.log("MEETING DATA", data);
         setUpdatedData(data); // Initialize updatedData with the existing data
       });
     // }
@@ -112,7 +104,7 @@ function MeetingDetailPage() {
                     onClick={handleSaveChanges}
                     className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    Save
+                    Save Changes
                   </button>
                   <button
                     onClick={handleDelete}
@@ -225,7 +217,7 @@ function MeetingDetailPage() {
                   htmlFor="comment"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Resources:
+                  Resources: 
                 </label>
 
                 <div className="mt-2">
@@ -241,6 +233,9 @@ function MeetingDetailPage() {
                       </Link>
                     ))}
                 </div>
+
+
+                <ResourcesList />
               </div>
             </div>
           ) : (
@@ -354,7 +349,7 @@ function MeetingDetailPage() {
                 htmlFor="comment"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Resources:
+                Resources: 
               </label>
 
               <div className="mt-2">
