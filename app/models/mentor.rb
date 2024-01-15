@@ -5,6 +5,7 @@ class Mentor < ApplicationRecord
   has_one :student
   has_one :mentor_application
   has_many :meetings, dependent: :destroy
+  has_many :resources, dependent: :destroy
 
   validates :first_name, :last_name, :email_address, :company_name, :job_title, presence: true
   validates :password, confirmation: true
