@@ -1,7 +1,12 @@
 class ResourcesController < ApplicationController
    def index
-      #render only all resources between a mentor and their student
-      resources = Resource.all
+      if session[:user_type] == "mentor"
+         resources = Mentor.find(session[:user_id]).resources
+         byebug
+      elsif session[:user_type] == "student"
+         resources = Student.find(session[:user_id]).resources
+      end
+      # resources = Resource.all
       render json: resources, status: :ok
    end
 
@@ -12,12 +17,6 @@ class ResourcesController < ApplicationController
 
    def show
       resource = Resource.find(params[:id])
-      render json: resource, status: :ok
-   end
-
-   def update
-      resource = Resource.find(params[:id])
-      resource.update(resource_params)
       render json: resource, status: :ok
    end
 
