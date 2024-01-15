@@ -28,5 +28,8 @@ Rails.application.routes.draw do
 
   #resource routes
   resources :resources, only: [:index, :show, :create, :update, :destroy]
+
+  #meeting resource routes
+  resources :meeting_resources, only: [:create, :destroy]
   
 end
