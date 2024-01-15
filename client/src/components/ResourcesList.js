@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function ResourcesList() {
+function ResourcesList({meetingId}) {
   const [resources, setResources] = useState([]);
   const [errors, setErrors] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     url: "",
   });
+
+  console.log("MEETING ID",meetingId)
 
   useEffect(() => {
     fetch("/resources")
@@ -17,29 +19,24 @@ function ResourcesList() {
       });
   }, []);
 
-
-  function handleSubmit() {
-    fetch("/resources", {
+  function handleAdd(resourceId){
+    console.log(meetingId, resourceId)
+    fetch("/meeting_resources", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({meeting_resource: {meeting_id: meetingId, resource_id: resourceId}}),
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.errors) {
           setErrors(data.errors);
         } else {
-          setResources([...resources, data]);
+          console.log(data)
         }
       });
   }
-
-  function handleAdd(){
-    console.log("add");
-  }
-
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
