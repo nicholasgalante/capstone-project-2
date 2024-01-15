@@ -9,6 +9,7 @@ import { SignInPage } from "./pages/SignInPage.js";
 import { Dashboard } from "./pages/Dashboard.js";
 import { Calendar } from "./components/Calendar.js";
 import { ResourcesList } from "./components/ResourcesList.js";
+import { ResourcesPage } from "./pages/ResourcesPage.js";
 
 function App() {
   return (
@@ -50,7 +51,7 @@ function App() {
             element={
               <>
                 <Navbar />
-                <ResourcesList />
+                <ResourcesPage />
               </>
             }
           />
