@@ -77,7 +77,7 @@ function Navbar() {
                     }
                   >
                     {" "}
-                    Resources
+                    My Resources
                   </NavLink>
                 </div>
               </div>
