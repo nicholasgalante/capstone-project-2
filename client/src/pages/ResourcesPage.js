@@ -61,7 +61,7 @@ function ResourcesPage() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Resources
+            My Resources
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             Resources are links to helpful websites or articles. <br />
