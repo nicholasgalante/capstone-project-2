@@ -4,6 +4,7 @@ class Student < ApplicationRecord
   belongs_to :mentor, optional: true
   has_many :meetings, dependent: :destroy
   has_one :student_application
+  has_many :resources, as: :owner, dependent: :destroy
 
   #validates :first_name, :last_name, :email_address, :degree_type, :area_of_study, :university_name, presence: true
   validates :password, confirmation: true
