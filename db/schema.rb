@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_11_180218) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_16_235440) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_11_180218) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "owner_type"
+    t.bigint "owner_id"
+    t.index ["owner_type", "owner_id"], name: "index_resources_on_owner"
   end
 
   create_table "student_applications", force: :cascade do |t|
