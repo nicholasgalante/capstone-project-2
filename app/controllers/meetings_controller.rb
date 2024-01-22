@@ -10,7 +10,6 @@ class MeetingsController < ApplicationController
   end
 
   def update
-    debugger
     meeting = Meeting.find(params[:id])
     meeting.update!(meeting_params)
     render json: meeting, status: :ok
