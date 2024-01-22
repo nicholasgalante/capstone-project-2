@@ -16,14 +16,6 @@ end
 
 puts "🌱 Seeding..."
 
-Mentor.create!(
-  first_name: "Jon",
-  last_name: "Doe",
-  email_address: "jon@example.com",
-  password_digest: BCrypt::Password.create("password"),
-  company_name: "Acme Corp",
-  job_title: "Senior Software Engineer",
-)
 
 Mentor.create!(
   first_name: "Carla",
@@ -34,14 +26,6 @@ Mentor.create!(
   job_title: "Data Scientist",
 )
 
-MentorApplication.create!(
-  application_status: "Approved",
-  resume_url: "https://example.com/jon_doe_resume.pdf",
-  motivation: "I'm passionate about helping students succeed in their careers. I believe mentorship can be a powerful tool for growth and development.",
-  skills_expertise: "Software development, leadership, team collaboration",
-  philosophy: "I believe in creating a positive and supportive environment where students can learn and grow.",
-  mentor_id: Mentor.find_by(first_name: "Jon").id,
-)
 
 MentorApplication.create!(
   application_status: "Approved",
@@ -52,17 +36,6 @@ MentorApplication.create!(
   mentor_id: Mentor.find_by(first_name: "Carla").id,
 )
 
-Student.create!(
-  first_name: "Alicia",
-  last_name: "Smith",
-  email_address: "alicia@example.com",
-  password_digest: BCrypt::Password.create("password"),
-  university_name: "University of California, Berkeley",
-  degree_type: "Bachelor of Science",
-  area_of_study: "Computer Science",
-  expected_graduation_date: Date.new(2025, 5, 31),
-  mentor_id: Mentor.find_by(first_name: "Jon").id,
-)
 
 Student.create!(
   first_name: "Ali",
@@ -76,15 +49,6 @@ Student.create!(
   mentor_id: Mentor.find_by(first_name: "Carla").id,
 )
 
-StudentApplication.create!(
-  application_status: "Accepted",
-  current_gpa: 4.0,
-  major: "Data Science",
-  motivation: "I'm passionate about using data to solve real-world problems and make a positive impact on society.",
-  portfolio_url: "https://example.com/bob_johnson_portfolio",
-  goals_aspirations: "Pursue a research career in data science",
-  student_id: Student.find_by(first_name: "Alicia").id,
-)
 
 StudentApplication.create!(
   application_status: "Accepted",
@@ -96,14 +60,45 @@ StudentApplication.create!(
   student_id: Student.find_by(first_name: "Ali").id,
 )
 
-Resource.create!(title: "Effective Software Development Practices", url: "https://www.amazon.com/Effective-Software-Development-Practices-Edition/dp/0134694774")
-Resource.create!(title: "The Data Science Handbook", url: "https://www.amazon.com/Data-Science-Handbook-Field-Guide/dp/1491910370")
-Resource.create!(title: "Cracking the Coding Interview", url: "https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850")
+Resource.create!(
+  title: "Introduction to Web Development",
+  url: "https://example.com/web_development_intro",
+  owner_type: "Mentor",
+  owner_id: Mentor.find_by(first_name: "Carla").id,
+)
+
+Resource.create!(
+  title: "Data Science Best Practices",
+  url: "https://example.com/data_science_best_practices",
+  owner_type: "Mentor",
+  owner_id: Mentor.find_by(first_name: "Carla").id,
+)
+
+Resource.create!(
+  title: "Effective Team Collaboration",
+  url: "https://example.com/team_collaboration_guide",
+  owner_type: "Mentor",
+  owner_id: Mentor.find_by(first_name: "Carla").id,
+)
+
+Resource.create!(
+  title: "Mobile App Development Fundamentals",
+  url: "https://example.com/mobile_app_dev_fundamentals",
+  owner_type: "Mentor",
+  owner_id: Mentor.find_by(first_name: "Carla").id,
+)
+
+Resource.create!(
+  title: "Leadership in Software Engineering",
+  url: "https://example.com/software_engineering_leadership",
+  owner_type: "Student",
+  owner_id: Student.find_by(first_name: "Ali").id,
+)
 
 meeting1 = Meeting.create!(
-  organizer_id: Student.find_by(first_name: "Alicia").id,
-  student_id: Student.find_by(first_name: "Alicia").id,
-  mentor_id: Mentor.find_by(first_name: "Jon").id,
+  organizer_id: Student.find_by(first_name: "Ali").id,
+  student_id: Student.find_by(first_name: "Ali").id,
+  mentor_id: Mentor.find_by(first_name: "Carla").id,
   meeting_datetime: DateTime.new(2024, 01, 15, 14, 00),
   location: "Acme Corp Conference Room",
   topics_discussed: "Career goals, software development projects",
@@ -111,7 +106,7 @@ meeting1 = Meeting.create!(
 )
 
 meeting2 = Meeting.create!(
-  organizer_id: Student.find_by(first_name: "Ali").id,
+  organizer_id: Mentor.find_by(first_name: "Carla").id,
   student_id: Student.find_by(first_name: "Ali").id,
   mentor_id: Mentor.find_by(first_name: "Carla").id,
   meeting_datetime: DateTime.new(2024, 02, 01, 10, 00),
@@ -120,7 +115,54 @@ meeting2 = Meeting.create!(
   next_steps: "Complete online data science courses, participate in hackathons",
 )
 
-MeetingResource.create!(meeting_id: meeting1.id, resource_id: Resource.find_by(title: "Cracking the Coding Interview").id)
-MeetingResource.create!(meeting_id: meeting2.id, resource_id: Resource.find_by(title: "The Data Science Handbook").id)
+meeting3 = Meeting.create!(
+  organizer_id: Student.find_by(first_name: "Ali").id,
+  student_id: Student.find_by(first_name: "Ali").id,
+  mentor_id: Mentor.find_by(first_name: "Carla").id,
+  meeting_datetime: DateTime.new(2024, 02, 15, 16, 30),
+  location: "TechCo Office",
+  topics_discussed: "Advanced machine learning concepts, project planning",
+  next_steps: "Implement machine learning models, set project milestones",
+)
+
+meeting4 = Meeting.create!(
+  organizer_id: Mentor.find_by(first_name: "Carla").id,
+  student_id: Student.find_by(first_name: "Ali").id,
+  mentor_id: Mentor.find_by(first_name: "Carla").id,
+  meeting_datetime: DateTime.new(2024, 03, 05, 11, 00),
+  location: "TechCo Conference Room",
+  topics_discussed: "Data analysis case studies, career development strategies",
+  next_steps: "Explore real-world data sets, update resume and LinkedIn profile",
+)
+
+meeting5 = Meeting.create!(
+  organizer_id: Mentor.find_by(first_name: "Carla").id,
+  student_id: Student.find_by(first_name: "Ali").id,
+  mentor_id: Mentor.find_by(first_name: "Carla").id,
+  meeting_datetime: DateTime.new(2024, 03, 20, 14, 30),
+  location: "TechCo Coffee Shop",
+  topics_discussed: "Networking opportunities, industry trends",
+  next_steps: "Attend networking events, stay updated on latest industry news",
+)
+
+MeetingResource.create!(
+  meeting_id: meeting1.id,
+  resource_id: Resource.find_by(title: "Introduction to Web Development").id,
+)
+
+MeetingResource.create!(
+  meeting_id: meeting1.id,
+  resource_id: Resource.find_by(title: "Effective Team Collaboration").id,
+)
+
+MeetingResource.create!(
+  meeting_id: meeting2.id,
+  resource_id: Resource.find_by(title: "Data Science Best Practices").id,
+)
+
+MeetingResource.create!(
+  meeting_id: meeting2.id,
+  resource_id: Resource.find_by(title: "Mobile App Development Fundamentals").id,
+)
 
 puts "🌱 Successfuly Seeded!"
