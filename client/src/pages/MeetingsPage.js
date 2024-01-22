@@ -14,6 +14,13 @@ function MeetingsPage() {
     return <div>Please sign in to view meetings.</div>;
   }
 
+  console.log(user)
+
+  function getOrganizerName(meeting) {
+    
+
+  }
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -87,7 +94,7 @@ function MeetingsPage() {
                         {meeting.location}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {meeting.organizer_id === user.id ? user.first_name : user.student.first_name}
+                        {getOrganizerName(meeting)}
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                         <PencilSquareIcon className="mt-1 h-5 w-5 flex-none text-gray-400"/>
