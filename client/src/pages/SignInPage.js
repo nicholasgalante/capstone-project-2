@@ -11,11 +11,11 @@ function SignInPage() {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user) {
-      navigate("/meetings");
-    }
-  }, [user, navigate]);
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate("/meetings");
+  //   }
+  // }, [user, navigate]);
 
   function handleSubmit(e) {
     e.preventDefault();
