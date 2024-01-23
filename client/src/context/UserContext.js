@@ -6,8 +6,6 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userType, setUserType] = useState(null);
 
-  console.log("USER DATA: ", user, userType);
-
   useEffect(() => {
     const fetchData = async () => {
       try {

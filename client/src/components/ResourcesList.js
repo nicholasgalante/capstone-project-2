@@ -10,7 +10,7 @@ function ResourcesList({meetingId, onResourceAdded}) {
   });
 
   useEffect(() => {
-    fetch("/resources")
+    fetch("/my_resources")
       .then((res) => res.json())
       .then((data) => {
         setResources(data);
@@ -46,7 +46,7 @@ function ResourcesList({meetingId, onResourceAdded}) {
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      Resources
+                      My Resources
                     </th>
                     <th
                       scope="col"

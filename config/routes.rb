@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   get "/my_resources" => "resources#my_resources"
 
   #meeting resource routes
-  resources :meeting_resources, only: [:create, :destroy]
+  post '/meeting_resources', to: 'meeting_resources#create'
+  delete '/meeting_resources/:meeting_id/:resource_id', to: 'meeting_resources#destroy', as: :delete_meeting_resource
+
   
 end
