@@ -50,7 +50,7 @@ function Hero() {
               </a></Link>
               <Link to="/signin">
                 <a className="text-sm font-semibold leading-6 text-gray-900">
-                {user ? <Link to="/meetings">Go to Dashboard</Link> : <Link to="/signin">Sign In</Link>} <span aria-hidden="true">→</span>
+                {user.first_name ? <Link to="/meetings">Go to Dashboard</Link> : <Link to="/signin">Sign In</Link>} <span aria-hidden="true">→</span>
                 </a>
               </Link>
             </div>
