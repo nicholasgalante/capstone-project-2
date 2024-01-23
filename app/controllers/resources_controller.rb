@@ -33,6 +33,6 @@ class ResourcesController < ApplicationController
   private
 
   def resource_params
-    params.require(:resource).permit(:title, :url, :description)
+    params.require(:resource).permit(:title, :url, :owner_type, :owner_id)
   end
 end
