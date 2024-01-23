@@ -13,7 +13,7 @@ function ResourcesPage() {
   });
 
   useEffect(() => {
-    fetch("/resources")
+    fetch("/my_resources")
       .then((res) => res.json())
       .then((data) => {
         setResources(data);
