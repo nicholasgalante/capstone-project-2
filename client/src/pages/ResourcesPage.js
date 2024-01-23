@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 function ResourcesPage() {
   const [resources, setResources] = useState([]);
   const [errors, setErrors] = useState([]);
+  const { user, setUser } = useContext(UserContext);
+  const { userType, setUserType } = useContext(UserContext);
   const [formData, setFormData] = useState({
     title: "",
     url: "",
@@ -17,19 +20,29 @@ function ResourcesPage() {
       });
   }, []);
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
+    setErrors([]);
+
+    const ownerType = userType.user_type == "mentor" ? "Mentor" : "Student";
+
     fetch("/resources", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        owner_type: ownerType,
+        owner_id: user.id,
+        ...formData,
+      }),
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.errors) {
           setErrors(data.errors);
         } else {
+         console.log(data)
           setResources([...resources, data]);
         }
       });
