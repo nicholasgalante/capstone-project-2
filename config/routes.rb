@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   post "/login" => "sessions#create"
   delete "/logout" => "sessions#destroy"
   get "/user" => "sessions#show"
+  get "/user_type" => "sessions#user_type"
 
   #meeting routes
   resources :meetings, only: [:index, :show, :create, :update, :destroy]
