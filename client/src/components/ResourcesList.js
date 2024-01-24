@@ -18,7 +18,6 @@ function ResourcesList({meetingId, onResourceAdded}) {
   }, []);
 
   function handleAdd(resourceId){
-    console.log("RESOURCE ID", resourceId)
     fetch("/meeting_resources", {
       method: "POST",
       headers: {
