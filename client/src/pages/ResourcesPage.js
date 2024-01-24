@@ -42,7 +42,6 @@ function ResourcesPage() {
         if (data.errors) {
           setErrors(data.errors);
         } else {
-         console.log(data)
           setResources([...resources, data]);
         }
       });
@@ -146,11 +145,11 @@ function ResourcesPage() {
                   {resources.length > 0 &&
                     resources.map((resource) => (
                       <tr key={resource.email}>
-                        <Link to={resource.url} target="_blank">
+                        
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-indigo-600 hover:text-indigo-900">
-                            {resource.title}
+                          <Link to={resource.url} target="_blank">{resource.title}</Link>
                           </td>
-                        </Link>
+                        
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                           <a
                             className="text-gray-400 hover:text-red-500"
