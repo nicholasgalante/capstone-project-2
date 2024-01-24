@@ -15,26 +15,6 @@ export const UserProvider = ({ children }) => {
 
   console.log("USER: ", user, "USER TYPE: ", userType, "LOADING: ", loading, "ERROR: ", error);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const [userData, userTypeData] = await Promise.all([
-  //         fetch("/user").then((res) => res.json()),
-  //         fetch("/user_type").then((res) => res.json()),
-  //       ]);
-  //       setUser(userData);
-  //       setUserType(userTypeData);
-  //     } catch (error) {
-  //       setError(error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,7 +23,7 @@ export const UserProvider = ({ children }) => {
 
         if (!userResponse.ok) {
           // Handle error for /user endpoint
-          setError(new Error(`Error fetching user data: ${userResponse.status}`));
+          setError({ error: `Error fetching user data: ${userResponse.status}` });
           return;
         }
 
