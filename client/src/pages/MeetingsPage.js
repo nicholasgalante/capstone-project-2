@@ -6,14 +6,28 @@ import { format } from "date-fns";
 import { PencilSquareIcon } from '@heroicons/react/20/solid'
 
 function MeetingsPage() {
-  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
-  const { user, setUser } = useContext(UserContext);
+  const { user, loading, error } = useContext(UserContext);
 
-  if (!user) {
-    return <div>Please sign in to view meetings.</div>;
+  useEffect(() => {
+    // Handle errors from the context
+    if (error) {
+      setErrors([error]);
+    }
+  }, [error]);
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
-  
+console.log(errors)
+
+  if (errors.length > 0) {
+    // Redirect to the sign-in page or display an error message
+   return <div>{errors}</div>;
+    // return  redirect("/signin");
+  }
+
+
   function getOrganizerName(meeting) {
     
 
