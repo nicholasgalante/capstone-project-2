@@ -10,7 +10,7 @@ class ApplicationController < ActionController::API
     user_id = session[:user_id]
   
     unless user_type && user_id
-      render json: { errors: ["Not authorized"] }, status: :unauthorized
+      render json: { errors: ["User not authorized"] }, status: :unauthorized
       return
     end
   
