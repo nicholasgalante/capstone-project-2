@@ -60,15 +60,15 @@ function ResourcesList({meetingId, onResourceAdded}) {
                   {resources.length > 0 &&
                     resources.map((resource) => (
                       <tr key={resource.id}>
-                        <Link to={resource.url} target="_blank">
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-indigo-600 hover:text-indigo-900">
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-indigo-600 hover:text-indigo-900">
+                          <Link to={resource.url} target="_blank">
                             {resource.title}
-                          </td>
-                        </Link>
+                          </Link>
+                        </td>
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                        <a className="text-indigo-600 hover:text-indigo-900" onClick={()=>handleAdd(resource.id)}>
-                          Attach to Meeting
-                        </a>
+                          <a className="text-indigo-600 hover:text-indigo-900" onClick={() => handleAdd(resource.id)}>
+                            Attach to Meeting
+                          </a>
                         </td>
                       </tr>
                     ))}
