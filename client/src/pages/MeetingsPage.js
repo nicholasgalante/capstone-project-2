@@ -13,9 +13,7 @@ function MeetingsPage() {
   if (!user) {
     return <div>Please sign in to view meetings.</div>;
   }
-
-  console.log(user)
-
+  
   function getOrganizerName(meeting) {
     
 
