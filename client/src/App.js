@@ -10,6 +10,8 @@ import { Calendar } from "./components/Calendar.js";
 import { ResourcesPage } from "./pages/ResourcesPage.js";
 
 function App() {
+
+
   return (
     <UserProvider>
       <BrowserRouter>
