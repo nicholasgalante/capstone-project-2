@@ -18,7 +18,9 @@ function Hero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
 
-  console.log("HERO SECTION",user)
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="relative bg-white">
