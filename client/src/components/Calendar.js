@@ -41,15 +41,10 @@ function Calendar() {
     return <div>Please sign in to view meetings.</div>;
   }
 
-  console.log(user.meetings);
-
   let days = eachDayOfInterval({
     start: firstDayCurrentMonth,
     end: endOfMonth(firstDayCurrentMonth),
   });
-
-  console.log(selectedDay);
-  console.log(currentMonth);
 
   function nextMonth() {
     let firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
