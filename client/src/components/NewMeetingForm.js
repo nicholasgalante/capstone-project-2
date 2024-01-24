@@ -45,7 +45,6 @@ function NewMeetingForm() {
     setErrors([]);
 
     let meetingData = getUserIDs();
-    console.log("STRINGIFIED DATA: ", JSON.stringify(meetingData));
 
     fetch("/meetings", {
       method: "POST",
