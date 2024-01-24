@@ -57,7 +57,6 @@ function MeetingDetailPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setMeetingData(data);
         setUpdating(false);
       });
@@ -92,9 +91,6 @@ function MeetingDetailPage() {
   }
   
   function handleDeleteMeetingResource(resourceId) {
-
-    console.log("MEETING ID: ", meetingID, "RESOURCE ID: ", resourceId)
-    // Send a DELETE request to the backend with the meeting ID and resource ID
     fetch(`/meeting_resources/${meetingID}/${resourceId}`, {
       method: 'DELETE',
       headers: {
@@ -107,7 +103,6 @@ function MeetingDetailPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.errors) {
           // Handle errors if needed
           console.error('Error deleting meeting resource:', data.errors);
