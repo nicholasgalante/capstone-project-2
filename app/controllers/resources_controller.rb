@@ -1,8 +1,4 @@
 class ResourcesController < ApplicationController
-  def index
-    resources = Resource.all
-    render json: resources, status: :ok
-  end
 
   def my_resources
     if session[:user_type] == "mentor"
