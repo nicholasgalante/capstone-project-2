@@ -10,8 +10,6 @@ function SignInForm() {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  console.log(user);
-
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
@@ -28,7 +26,6 @@ function SignInForm() {
       setIsLoading(false);
       if (r.ok) {
         r.json().then((user) => {
-          console.log(user);
           setUser(user);
           navigate("/dashboard")
         });
