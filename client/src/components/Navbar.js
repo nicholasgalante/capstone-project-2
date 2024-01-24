@@ -13,6 +13,10 @@ function Navbar() {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
+  if (!user) {
+    return navigate("/signin");
+  }
+
   function handleSignOut() {
     fetch("/logout", {
       method: "DELETE",
