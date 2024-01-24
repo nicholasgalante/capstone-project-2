@@ -3,34 +3,16 @@ import { Link, redirect } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { NewMeetingForm } from "../components/NewMeetingForm";
 import { format } from "date-fns";
-import { PencilSquareIcon } from '@heroicons/react/20/solid'
 import { SignInForm } from "../components/SignInForm";
+import { useNavigate } from "react-router-dom";
 
 function MeetingsPage() {
   const [errors, setErrors] = useState([]);
   const { user, userType, loading, error } = useContext(UserContext);
-
-  // console.log("MEETING PAGE ERROR FROM USER: ", error, "MEETING PAGE ERRORS: ", errors)
-
-  useEffect(() => {
-    // Handle errors from the context
-    if (error) {
-      setErrors([error.message]);
-    }
-  }, [error]);
+  const navigate = useNavigate();
 
   if (loading) {
     return <div>Loading...</div>;
-  }
-
-  if (errors.length > 0) {
-    // Extract error messages or relevant information before rendering
-    return <div>{errors}</div>;
-  }
-
-  // Check if user is available before accessing properties
-  if (!user) {
-    return <SignInForm/>
   }
 
   return (
