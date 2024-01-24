@@ -10,7 +10,7 @@ function MeetingsPage() {
   const [errors, setErrors] = useState([]);
   const { user, userType, loading, error } = useContext(UserContext);
 
-  console.log("MEETING PAGE ERROR FROM USER: ", error, "MEETING PAGE ERRORS: ", errors)
+  // console.log("MEETING PAGE ERROR FROM USER: ", error, "MEETING PAGE ERRORS: ", errors)
 
   useEffect(() => {
     // Handle errors from the context
