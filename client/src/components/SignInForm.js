@@ -21,7 +21,7 @@ function SignInForm() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email_address: email, password: password }),
-      credentials: "include", // <-- includes cookies in the request
+      credentials: "include", //includes cookies in the request
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
