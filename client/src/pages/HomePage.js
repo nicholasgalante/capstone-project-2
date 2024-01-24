@@ -11,7 +11,6 @@ function HomePage() {
     <div>
       <Hero />
       <AboutSection />
-      {/* <StatsSection /> */}
       <TestimonialSection />
       <CallToAction />
       <Footer/>
