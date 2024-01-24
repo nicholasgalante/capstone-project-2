@@ -14,7 +14,6 @@ function Navbar() {
   const navigate = useNavigate();
 
   function handleSignOut() {
-    console.log("SIGNED OUT");
     fetch("/logout", {
       method: "DELETE",
       credentials: "include",
