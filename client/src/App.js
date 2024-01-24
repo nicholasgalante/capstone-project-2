@@ -6,9 +6,7 @@ import { MeetingsPage } from "./pages/MeetingsPage.js";
 import { MeetingDetailPage } from "./pages/MeetingDetailPage.js";
 import { HomePage } from "./pages/HomePage.js";
 import { SignInPage } from "./pages/SignInPage.js";
-import { Dashboard } from "./pages/Dashboard.js";
 import { Calendar } from "./components/Calendar.js";
-import { ResourcesList } from "./components/ResourcesList.js";
 import { ResourcesPage } from "./pages/ResourcesPage.js";
 
 function App() {
