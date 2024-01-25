@@ -7,20 +7,22 @@ import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 
 function StudentSignUpForm() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    universityName: "",
-    degreeType: "",
-    areaOfStudy: "",
-    expectedGraduationDate: "",
-    email: "",
+    first_name: "",
+    last_name: "",
+    university_name: "",
+    degree_type: "",
+    area_o_study: "",
+    expected_graduation_date: "",
+    email_address: "",
     password: "",
-    passwordConfirmation: "",
+    password_confirmation: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
+
+  console.log(formData)
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -38,8 +40,9 @@ function StudentSignUpForm() {
       setIsLoading(false);
       if (r.ok) {
         r.json().then((user) => {
+          console.log("NEW USER: ", user);
           setUser(user);
-          navigate("/dashboard");
+          navigate("/signin");
         });
       } else {
         r.json().then((err) => setErrors(err.errors));
@@ -53,62 +56,57 @@ function StudentSignUpForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label
-        className="block text-sm font-medium leading-6 text-gray-900"
-      >
+      <label className="block text-sm font-medium leading-6 text-gray-900">
         First Name
       </label>
       <div className="mt-2">
         <input
-          value={formData.firstName}
+          value={formData.first_name}
           onChange={handleChange}
           type="text"
-          name="firstName"
+          name="first_name"
           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
         />
       </div>
-      <label
-        className="block text-sm font-medium leading-6 text-gray-900"
-      >
+      <label className="block text-sm font-medium leading-6 text-gray-900">
         Last Name
       </label>
       <input
-        value={formData.lastName}
+        value={formData.last_name}
         onChange={handleChange}
         type="text"
-        name="lastName"
+        name="last_name"
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
 
-      <label
-        className="block text-sm font-medium leading-6 text-gray-900"
-      >
+      <label className="block text-sm font-medium leading-6 text-gray-900">
         University Name
       </label>
       <input
-        value={formData.universityName}
+        value={formData.university_name}
         onChange={handleChange}
         type="text"
-        name="universityName"
+        name="university_name"
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
 
-      <label
-        className="block text-sm font-medium leading-6 text-gray-900"
-      >
+      <label className="block text-sm font-medium leading-6 text-gray-900">
         Degree Type
       </label>
-      <input
-        value={formData.degreeType}
+      <select
+        value={formData.degree_type}
         onChange={handleChange}
         type="text"
-        name="degreeType"
+        name="degree_type"
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      />
-
-      <label
-        className="block text-sm font-medium leading-6 text-gray-900"
       >
+        <option value="">Select a degree type</option>
+        <option value="Associate">Associate Degree</option>
+        <option value="Bachelor">Bachelor Degree</option>
+        <option value="Master">Master Degree</option>
+      </select>
+
+      <label className="block text-sm font-medium leading-6 text-gray-900">
         Area of Study
       </label>
       <input
@@ -119,34 +117,28 @@ function StudentSignUpForm() {
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
 
-      <label
-        className="block text-sm font-medium leading-6 text-gray-900"
-      >
+      <label className="block text-sm font-medium leading-6 text-gray-900">
         Expected Graduation Date
       </label>
       <input
-        value={formData.expectedGraduationDate}
+        value={formData.expected_graduation_date}
         onChange={handleChange}
-        type="text"
-        name="expectedGraduationDate"
+        type="date"
+        name="expected_graduation_date"
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
 
-      <label
-        className="block text-sm font-medium leading-6 text-gray-900"
-      >
+      <label className="block text-sm font-medium leading-6 text-gray-900">
         Email Address
       </label>
       <input
-        value={formData.email}
+        value={formData.email_address}
         onChange={handleChange}
         type="email"
-        name="email"
+        name="email_address"
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
-      <label
-        className="block text-sm font-medium leading-6 text-gray-900"
-      >
+      <label className="block text-sm font-medium leading-6 text-gray-900">
         Password
       </label>
       <input
@@ -156,16 +148,14 @@ function StudentSignUpForm() {
         name="password"
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
-      <label
-        className="block text-sm font-medium leading-6 text-gray-900"
-      >
+      <label className="block text-sm font-medium leading-6 text-gray-900">
         Password Confirmation
       </label>
       <input
-        value={formData.passwordConfirmation}
+        value={formData.password_confirmation}
         onChange={handleChange}
         type="password"
-        name="passwordConfirmation"
+        name="password_confirmation"
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
       <button
