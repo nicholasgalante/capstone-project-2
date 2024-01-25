@@ -27,7 +27,7 @@ function SignInForm() {
       if (r.ok) {
         r.json().then((user) => {
           setUser(user);
-          navigate("/dashboard")
+          navigate("/meetings")
         });
       } else {
         r.json().then((err) => console.log(err.errors));
