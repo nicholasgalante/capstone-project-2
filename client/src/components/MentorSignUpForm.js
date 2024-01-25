@@ -7,13 +7,13 @@ import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 
 function MentorSignUpForm() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
+    first_name: "",
+    last_name: "",
+    email_address: "",
     password: "",
-    passwordConfirmation: "",
-    companyName: "",
-    jobTitle: "",
+    password_confirmation: "",
+    company_name: "",
+    job_title: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
@@ -42,7 +42,7 @@ function MentorSignUpForm() {
       if (r.ok) {
         r.json().then((user) => {
           setUser(user);
-          navigate("/dashboard");
+          navigate("/signin");
         });
       } else {
         r.json().then((err) => setErrors(err.errors));
@@ -56,10 +56,10 @@ function MentorSignUpForm() {
         First Name
       </label>
       <input
-        value={formData.firstName}
+        value={formData.first_name}
         onChange={handleChange}
         type="text"
-        name="firstName"
+        name="first_name"
         className="block mb-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
 
@@ -67,10 +67,10 @@ function MentorSignUpForm() {
         Last Name
       </label>
       <input
-        value={formData.lastName}
+        value={formData.last_name}
         onChange={handleChange}
         type="text"
-        name="lastName"
+        name="last_name"
         className="block mb-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
 
@@ -78,10 +78,10 @@ function MentorSignUpForm() {
         Company Name
       </label>
       <input
-        value={formData.companyName}
+        value={formData.company_name}
         onChange={handleChange}
         type="text"
-        name="companyName"
+        name="company_name"
         className="block mb-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
 
@@ -89,10 +89,10 @@ function MentorSignUpForm() {
         Job Title
       </label>
       <input
-        value={formData.jobTitle}
+        value={formData.job_title}
         onChange={handleChange}
         type="text"
-        name="jobTitle"
+        name="job_title"
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
 
@@ -100,10 +100,10 @@ function MentorSignUpForm() {
         Email Address
       </label>
       <input
-        value={formData.email}
+        value={formData.email_address}
         onChange={handleChange}
         type="text"
-        name="email"
+        name="email_address"
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
 
@@ -122,10 +122,10 @@ function MentorSignUpForm() {
         Password Confirmation
       </label>
       <input
-        value={formData.passwordConfirmation}
+        value={formData.password_confirmation}
         onChange={handleChange}
         type="password"
-        name="passwordConfirmation"
+        name="password_confirmation"
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       />
 
