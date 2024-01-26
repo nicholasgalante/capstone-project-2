@@ -52,7 +52,7 @@ function Navbar() {
                 <div className="flex flex-shrink-0 items-center">
                   <Link to="/">
                     <svg
-                      class="h-8 w-8 text-indigo-500"
+                      className="h-8 w-8 text-indigo-500"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
