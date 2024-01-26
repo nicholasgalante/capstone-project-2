@@ -19,7 +19,7 @@ function MeetingDetailPage() {
       .then((response) => response.json())
       .then((data) => {
         setMeetingData(data);
-        setUpdatedData(data); 
+        setUpdatedData(data);
       });
   }, [meetingID]);
 
@@ -38,14 +38,41 @@ function MeetingDetailPage() {
   function handleEdit() {
     setUpdating(!updating);
   }
-  
-  const handleResourceAdded = (newResource) => {
-    setMeetingData({
-      ...meetingData,
-      resources: [...meetingData.resources, newResource],
-    });
-  };
 
+  const handleAddResource = (newResource) => {
+    if (
+      meetingData.resources.find((resource) => resource.id === newResource.id)
+    ) {
+      console.log("Resource already attached to meeting.");
+      //set error message
+      return;
+    } else {
+      console.log("ADD RESOURCE: ", newResource);
+      fetch("/meeting_resources", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          meeting_resource: {
+            meeting_id: meetingID,
+            resource_id: newResource.id,
+          },
+        }),
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          if (data.errors) {
+            setErrors(data.errors);
+          } else {
+            setMeetingData({
+              ...meetingData,
+              resources: [...meetingData.resources, newResource],
+            });
+          }
+        });
+    }
+  };
 
   function handleSaveChanges() {
     fetch(`/meetings/${meetingID}`, {
@@ -89,12 +116,12 @@ function MeetingDetailPage() {
       }
     });
   }
-  
+
   function handleDeleteMeetingResource(resourceId) {
     fetch(`/meeting_resources/${meetingID}/${resourceId}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         meeting_id: meetingID,
@@ -105,21 +132,21 @@ function MeetingDetailPage() {
       .then((data) => {
         if (data.errors) {
           // Handle errors if needed
-          console.error('Error deleting meeting resource:', data.errors);
+          console.error("Error deleting meeting resource:", data.errors);
         } else {
           // Update the UI after successful deletion
           setMeetingData({
             ...meetingData,
-            resources: meetingData.resources.filter((resource) => resource.id !== resourceId),
+            resources: meetingData.resources.filter(
+              (resource) => resource.id !== resourceId
+            ),
           });
         }
       })
       .catch((error) => {
-        console.error('Error deleting meeting resource:', error);
+        console.error("Error deleting meeting resource:", error);
       });
-
   }
-
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
@@ -149,7 +176,6 @@ function MeetingDetailPage() {
                   </button>
                 </div>
               </div>
-
               <div>
                 <label
                   htmlFor="comment"
@@ -170,7 +196,6 @@ function MeetingDetailPage() {
                     readOnly
                   />
                 </div>
-
                 <label
                   htmlFor="comment"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -187,7 +212,6 @@ function MeetingDetailPage() {
                     readOnly
                   />
                 </div>
-
                 <label
                   htmlFor="comment"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -206,7 +230,6 @@ function MeetingDetailPage() {
                     }
                   />
                 </div>
-
                 <label
                   htmlFor="comment"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -225,7 +248,6 @@ function MeetingDetailPage() {
                     }
                   />
                 </div>
-
                 <label
                   htmlFor="comment"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -244,29 +266,32 @@ function MeetingDetailPage() {
                     }
                   />
                 </div>
-
                 <label
                   htmlFor="comment"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Attached Resources
                 </label>
-
                 <div className="mt-2">
-                  {resources.length > 0 ?
-                    resources.map((resource, index) => (
+                  {resources.length > 0
+                    ? resources.map((resource) => (
                         <button
-                          key={index}
+                          key={resource.id}
                           className="ml-2 rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-red-500 hover:line-through hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
-                          onClick={() => {handleDeleteMeetingResource(resource.id)}}
+                          onClick={() => {
+                            handleDeleteMeetingResource(resource.id);
+                          }}
                         >
                           {resource.title}
                         </button>
-                    )):
-                    'Attach resources using the list below.'}
+                      ))
+                    : "Attach resources using the list below."}
                 </div>
 
-                <ResourcesList meetingId={meetingID} onResourceAdded={handleResourceAdded}/>
+                <ResourcesList
+                  meetingId={meetingID}
+                  handleAddResource={handleAddResource}
+                />
               </div>
             </div>
           ) : (
@@ -384,18 +409,15 @@ function MeetingDetailPage() {
               </label>
 
               <div className="mt-2">
-                {resources.length > 0 ?
-                  resources.map((resource, index) => (
-                    <Link to={resource.url} target="_blank">
-                      <button
-                        key={index}
-                        className="ml-2 rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
-                      >
-                        {resource.title}
-                      </button>
-                    </Link>
-                  )):
-                  'Currently, no resources are attached. Update meeting log to attach resources.'}
+                {resources.length > 0
+                  ? resources.map((resource) => (
+                      <Link to={resource.url} target="_blank" key={resource.id}>
+                        <button className="ml-2 rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400">
+                          {resource.title}
+                        </button>
+                      </Link>
+                    ))
+                  : "Currently, no resources are attached. Update meeting log to attach resources."}
               </div>
             </div>
           )}
