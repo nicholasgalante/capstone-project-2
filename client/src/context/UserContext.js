@@ -13,8 +13,6 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log("USER: ", user, "USER TYPE: ", userType, "LOADING: ", loading, "ERROR: ", error);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,13 +21,19 @@ export const UserProvider = ({ children }) => {
 
         if (!userResponse.ok) {
           // Handle error for /user endpoint
-          setError({ error: `Error fetching user data: ${userResponse.status}` });
+          setError({
+            error: `Error fetching user data: ${userResponse.status}`,
+          });
           return;
         }
 
         if (!userTypeResponse.ok) {
           // Handle error for /user_type endpoint
-          setError(new Error(`Error fetching user type data: ${userTypeResponse.status}`));
+          setError(
+            new Error(
+              `Error fetching user type data: ${userTypeResponse.status}`
+            )
+          );
           return;
         }
 
@@ -48,6 +52,9 @@ export const UserProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <UserContext.Provider value={{ user, setUser, userType, loading, error }}>
