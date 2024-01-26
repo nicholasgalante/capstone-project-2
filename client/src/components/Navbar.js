@@ -10,14 +10,23 @@ function classNames(...classes) {
 }
 
 function Navbar() {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, userType, loading, error } = useContext(UserContext);
+  const [matchedUser, setMatchedUser] = useState(null);
   const navigate = useNavigate();
+
+  console.log(userType)
+
+  useEffect(() => {
+    if (userType.user_type === "mentor") {
+      setMatchedUser(user.student);
+    } else {
+      setMatchedUser(user.mentor);
+    }
+  }, [user]);
 
   if (!user) {
     return navigate("/signin");
   }
-
-  console.log(user.profile_image_url)
 
   function handleSignOut() {
     fetch("/logout", {
@@ -30,6 +39,9 @@ function Navbar() {
       }
     });
   }
+  console.log("MATCHED USER: ", matchedUser);
+
+
 
   return (
     <Disclosure as="nav" className="bg-white shadow">
@@ -40,7 +52,23 @@ function Navbar() {
               <div className="flex">
                 <div className="flex flex-shrink-0 items-center">
                   <Link to="/">
-                  <svg class="h-8 w-8 text-indigo-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="3" y1="21" x2="21" y2="21" />  <path d="M4 21v-15a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v15" />  <path d="M9 21v-8a3 3 0 0 1 6 0v8" /></svg>
+                    <svg
+                      class="h-8 w-8 text-indigo-500"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      stroke-width="2"
+                      stroke="currentColor"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      {" "}
+                      <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                      <line x1="3" y1="21" x2="21" y2="21" />{" "}
+                      <path d="M4 21v-15a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v15" />{" "}
+                      <path d="M9 21v-8a3 3 0 0 1 6 0v8" />
+                    </svg>
                   </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
@@ -83,24 +111,24 @@ function Navbar() {
                 </div>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
-                <button
-                  type="button"
-                  className="relative rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View notifications</span>
-                  {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
-                </button>
-
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
-                  <div>
-                    <Menu.Button className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  <div className="flex">
+                    <Menu.Button className="relative flex mr-5 rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full object-cover"
                         src={user.profile_image_url}
+                        alt=""
+                      />
+                    </Menu.Button>
+                    <Menu.Button className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                      <span className="absolute -inset-1.5" />
+                      <span className="sr-only">Open user menu</span>
+                      <img
+                        className="h-8 w-8 rounded-full object-cover"
+                        src={matchedUser.profile_image_url}
                         alt=""
                       />
                     </Menu.Button>
@@ -124,7 +152,7 @@ function Navbar() {
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
-                            Your Profile
+                            My Profile
                           </a>
                         )}
                       </Menu.Item>
@@ -145,104 +173,8 @@ function Navbar() {
                   </Transition>
                 </Menu>
               </div>
-              <div className="-mr-2 flex items-center sm:hidden">
-                {/* Mobile menu button */}
-                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                  <span className="absolute -inset-0.5" />
-                  <span className="sr-only">Open main menu</span>
-                  {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                  )}
-                </Disclosure.Button>
-              </div>
             </div>
           </div>
-
-          <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 pb-3 pt-2">
-              {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
-              >
-                Dashboard
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-              >
-                Team
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-              >
-                Projects
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-              >
-                Calendar
-              </Disclosure.Button>
-            </div>
-            <div className="border-t border-gray-200 pb-3 pt-4">
-              <div className="flex items-center px-4">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <div className="text-base font-medium text-gray-800">
-                    Tom Cook
-                  </div>
-                  <div className="text-sm font-medium text-gray-500">
-                    tom@example.com
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className="relative ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View notifications</span>
-                  {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
-                </button>
-              </div>
-              <div className="mt-3 space-y-1">
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                >
-                  Your Profile
-                </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                >
-                  Settings
-                </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                  onClick={handleSignOut}
-                >
-                  Sign out
-                </Disclosure.Button>
-              </div>
-            </div>
-          </Disclosure.Panel>
         </>
       )}
     </Disclosure>

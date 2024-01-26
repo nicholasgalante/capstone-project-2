@@ -26,9 +26,9 @@ function MeetingsPage() {
             View your upcoming or past meetings here.
           </p>
         </div>
+
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
           <NewMeetingForm />
-          
         </div>
       </div>
       <div className="mt-8 flow-root">
@@ -97,5 +97,3 @@ function MeetingsPage() {
 }
 
 export { MeetingsPage };
-
-
