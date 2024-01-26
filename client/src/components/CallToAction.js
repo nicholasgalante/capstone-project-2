@@ -19,7 +19,7 @@ export default function CallToAction() {
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <div className="text-sm font-semibold leading-6 text-gray-900">
               {user ? (
-                <Link to="/meetings">Go to Dashboard →</Link>
+                <Link to="/meetings" className="text-indigo-600">Go to Dashboard →</Link>
               ) : (
                 <div>
                   <Link

@@ -22,8 +22,6 @@ function StudentSignUpForm() {
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  console.log(formData)
-
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
