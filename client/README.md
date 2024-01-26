@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# Read Me
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project: TechBridge - Connecting Students and Mentors
 
-## Available Scripts
+TechBridge facilitates one-to-one mentorship between university students studying IT degrees and experienced professionals in the field.
 
-In the project directory, you can run:
+**Please note:** This is a capstone project currently under development. While functional, some features and functionalities are still being actively implemented and improved.
 
-### `npm start`
+### Overview:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* Mentors: Share their knowledge and experience, guide students on career paths, and provide valuable feedback.
+* Students: Gain insights into the working world, receive personalized advice, and develop skills to excel in their careers.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Unique Selling Proposition:
 
-### `npm test`
+* Personalized: One-to-one mentorship offers deeper connections and tailored support compared to group interactions.
+* Career-focused: Mentors with industry experience provide real-world advice and help students prepare for their desired careers.
+* Skill development: Students gain practical skills through project guidance and discussions with experienced professionals.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Tech Stack:
 
-### `npm run build`
+* Frontend: React provides a dynamic and user-friendly interface, while Tailwind CSS ensures beautiful and responsive design.
+* Backend: Ruby on Rails delivers a robust and scalable backend with its powerful framework and rich gem ecosystem.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### System Architecture:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* One-to-one relationships: A mentor can have one student and a student can belong to one mentor. 
+* One-to-many relationships: Students and Mentors can have many meetings.
+* Polymorphic relationships: Mentors and students can have many resources using `owner_type` and `owner_id` attributes
+* Many-to-many relationships: Students and Mentors can have many resources through meetings using the `MeetingResource` joins table. 
+* RESTful client-side routing: Seamless navigation between pages using React Router.
+* Password protection and user authentication: Secure access with user accounts and login functionalities.
+* Full CRUD operations: Create, Read, Update, and Delete functionality for all models, adhering to REST conventions.
+* Validations and error handling: Ensure data integrity and user experience with comprehensive validation rules and informative error messages.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Deployment and Hosting:
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Deployed and hosted on AWS: Reliable and scalable cloud infrastructure ensures high availability and performance.
