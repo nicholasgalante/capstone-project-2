@@ -51,26 +51,31 @@ function Hero() {
               Guiding the future of IT excellence with personalized one-to-one
               mentorships between university students and career professionals.{" "}
             </p>
-            <div className="mt-10 flex items-center gap-x-6">
-              <Link
-                to="/signup"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Get started
-              </Link>
+           
+        
 
-              <Link
-                to="/signin"
-                className="text-sm font-semibold leading-6 text-gray-900"
-              >
-                {user ? (
-                  <Link to="/meetings">Go to Dashboard</Link>
-                ) : (
-                  <Link to="/signin">Sign In</Link>
-                )}{" "}
-                <span aria-hidden="true">→</span>
-              </Link>
+            <div className="mt-10 flex items-center  gap-x-6">
+            <div className="text-sm font-semibold leading-6 text-gray-900">
+              {user ? (
+                <Link to="/meetings">Go to Dashboard →</Link>
+              ) : (
+                <div>
+                  <Link
+                    to="/signup"
+                    className="rounded-md mr-5 bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Get started
+                  </Link>
+                  <Link to="/signin">Sign In →</Link>
+                </div>
+              )}
             </div>
+          </div>
+
+
+
+
+
           </div>
         </div>
         <div className="relative lg:col-span-5 lg:-mr-8 xl:absolute xl:inset-0 xl:left-1/2 xl:mr-0">

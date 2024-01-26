@@ -47,7 +47,23 @@ function SignInPage() {
       <div className="w-full max-w-sm space-y-10">
         <div>
           <Link to="/">
-                      <svg class="mx-auto w-auto h-10 text-indigo-600"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="3" y1="21" x2="21" y2="21" />  <path d="M4 21v-15a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v15" />  <path d="M9 21v-8a3 3 0 0 1 6 0v8" /></svg>
+            <svg
+              className="mx-auto w-auto h-10 text-indigo-600"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {" "}
+              <path stroke="none" d="M0 0h24v24H0z" />{" "}
+              <line x1="3" y1="21" x2="21" y2="21" />{" "}
+              <path d="M4 21v-15a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v15" />{" "}
+              <path d="M9 21v-8a3 3 0 0 1 6 0v8" />
+            </svg>
           </Link>
           <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
@@ -103,10 +119,11 @@ function SignInPage() {
         {errors.map((err) => err)}
         <p className="text-center text-sm leading-6 text-gray-500">
           Don't have an account?{" "}
-          <Link to="/signup">
-            <a className="font-semibold text-indigo-600 hover:text-indigo-500">
-              Sign Up
-            </a>
+          <Link
+            to="/signup"
+            className="font-semibold text-indigo-600 hover:text-indigo-500"
+          >
+            Sign Up
           </Link>
         </p>
       </div>
