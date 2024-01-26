@@ -24,7 +24,7 @@ Mentor.create!(
   password_digest: BCrypt::Password.create("password"),
   company_name: "TechCo",
   job_title: "Data Scientist",
-  profile_image_url: "https://blog-pixomatic.s3.appcnt.com/image/22/01/26/61f166e07f452/_orig/pixomatic_1572877263963.png",
+  profile_image_url: "https://www.bethesdaheadshots.com/wp-content/uploads/2022/05/pretty-black-female-business-headshot.jpg",
 )
 
 
