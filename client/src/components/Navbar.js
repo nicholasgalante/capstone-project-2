@@ -11,22 +11,24 @@ function classNames(...classes) {
 
 function Navbar() {
   const { user, setUser, userType, loading, error } = useContext(UserContext);
-  const [matchedUser, setMatchedUser] = useState(null);
+  // const [matchedUser, setMatchedUser] = useState(null);
   const navigate = useNavigate();
 
-  console.log(userType)
-
-  useEffect(() => {
-    if (userType.user_type === "mentor") {
-      setMatchedUser(user.student);
-    } else {
-      setMatchedUser(user.mentor);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (userType.user_type === "mentor") {
+  //     setMatchedUser(user.student);
+  //   } else {
+  //     setMatchedUser(user.mentor);
+  //   }
+  // }, [user]);
 
   if (!user) {
     return navigate("/signin");
   }
+
+  // if(!matchedUser){
+  //   return <div>Loading...</div>
+  // }
 
   function handleSignOut() {
     fetch("/logout", {
@@ -39,9 +41,6 @@ function Navbar() {
       }
     });
   }
-  console.log("MATCHED USER: ", matchedUser);
-
-
 
   return (
     <Disclosure as="nav" className="bg-white shadow">
@@ -57,11 +56,11 @@ function Navbar() {
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
-                      stroke-width="2"
+                      strokeWidth="2"
                       stroke="currentColor"
                       fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     >
                       {" "}
                       <path stroke="none" d="M0 0h24v24H0z" />{" "}
@@ -123,7 +122,7 @@ function Navbar() {
                         alt=""
                       />
                     </Menu.Button>
-                    <Menu.Button className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    {/* <Menu.Button className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
                       <img
@@ -131,7 +130,7 @@ function Navbar() {
                         src={matchedUser.profile_image_url}
                         alt=""
                       />
-                    </Menu.Button>
+                    </Menu.Button> */}
                   </div>
                   <Transition
                     as={Fragment}

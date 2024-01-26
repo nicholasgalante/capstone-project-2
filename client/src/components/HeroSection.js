@@ -11,13 +11,11 @@ import {
 } from "@heroicons/react/24/outline";
 import { UserContext } from "../context/UserContext";
 
-
 const navigation = [{ name: "Log in", href: "#" }];
 
 function Hero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
-
 
   return (
     <div className="relative bg-white">
@@ -25,7 +23,23 @@ function Hero() {
       <section className="mx-auto max-w-7xl lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8">
         <div className="px-6 pb-24 pt-10 sm:pb-32 lg:col-span-7 lg:px-0 lg:pb-56 lg:pt-48 xl:col-span-6">
           <div className="mx-auto max-w-2xl lg:mx-0">
-          <svg class="h-10 w-10 text-indigo-600"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="3" y1="21" x2="21" y2="21" />  <path d="M4 21v-15a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v15" />  <path d="M9 21v-8a3 3 0 0 1 6 0v8" /></svg>
+            <svg
+              className="h-10 w-10 text-indigo-600"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {" "}
+              <path stroke="none" d="M0 0h24v24H0z" />{" "}
+              <line x1="3" y1="21" x2="21" y2="21" />{" "}
+              <path d="M4 21v-15a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v15" />{" "}
+              <path d="M9 21v-8a3 3 0 0 1 6 0v8" />
+            </svg>
             <p className="text-base font-semibold leading-7 text-indigo-600">
               TechBridge
             </p>
@@ -38,15 +52,23 @@ function Hero() {
               mentorships between university students and career professionals.{" "}
             </p>
             <div className="mt-10 flex items-center gap-x-6">
-            <Link to="/signup"><a
+              <Link
+                to="/signup"
                 className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Get started
-              </a></Link>
-              <Link to="/signin">
-                <a className="text-sm font-semibold leading-6 text-gray-900">
-                {user? <Link to="/meetings">Go to Dashboard</Link> : <Link to="/signin">Sign In</Link>} <span aria-hidden="true">→</span>
-                </a>
+              </Link>
+
+              <Link
+                to="/signin"
+                className="text-sm font-semibold leading-6 text-gray-900"
+              >
+                {user ? (
+                  <Link to="/meetings">Go to Dashboard</Link>
+                ) : (
+                  <Link to="/signin">Sign In</Link>
+                )}{" "}
+                <span aria-hidden="true">→</span>
               </Link>
             </div>
           </div>
