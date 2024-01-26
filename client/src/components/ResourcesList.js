@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function ResourcesList({meetingId, onResourceAdded}) {
+
+function ResourcesList({handleAddResource}) {
   const [resources, setResources] = useState([]);
-  const [errors, setErrors] = useState([]);
-  const [formData, setFormData] = useState({
-    title: "",
-    url: "",
-  });
 
   useEffect(() => {
     fetch("/my_resources")
@@ -16,24 +12,6 @@ function ResourcesList({meetingId, onResourceAdded}) {
         setResources(data);
       });
   }, []);
-
-  function handleAdd(resourceId){
-    fetch("/meeting_resources", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({meeting_resource: {meeting_id: meetingId, resource_id: resourceId}}),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.errors) {
-          setErrors(data.errors);
-        } else {
-          onResourceAdded(resources.find((resource) => resource.id == resourceId))
-        }
-      });
-  }
 
   return (
           <div className="mx-auto max-w-7xl min-w-full py-2 align-middle sm:px-6 lg:px-8 mt-8 flow-root -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -65,7 +43,7 @@ function ResourcesList({meetingId, onResourceAdded}) {
                           </Link>
                         </td>
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                          <a className="text-indigo-600 hover:text-indigo-900" onClick={() => handleAdd(resource.id)}>
+                          <a className="text-indigo-600 hover:text-indigo-900" onClick={() => handleAddResource(resource)}>
                             Attach to Meeting
                           </a>
                         </td>
