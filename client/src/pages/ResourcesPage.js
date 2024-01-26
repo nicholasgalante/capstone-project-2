@@ -144,7 +144,7 @@ function ResourcesPage() {
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {resources.length > 0 &&
                     resources.map((resource) => (
-                      <tr key={resource.email}>
+                      <tr key={resource.id}>
                         
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-indigo-600 hover:text-indigo-900">
                           <Link to={resource.url} target="_blank">{resource.title}</Link>
