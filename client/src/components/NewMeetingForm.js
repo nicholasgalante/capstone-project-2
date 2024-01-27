@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
-function NewMeetingForm() {
+function NewMeetingForm({ setErrors }) {
+  const { user, setUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
     meeting_datetime: "",
     location: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState([]);
-  const { user, setUser } = useContext(UserContext);
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -41,11 +39,8 @@ function NewMeetingForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    setIsLoading(true);
     setErrors([]);
-
     let meetingData = getUserIDs();
-
     fetch("/meetings", {
       method: "POST",
       headers: {
@@ -56,11 +51,9 @@ function NewMeetingForm() {
       .then((r) => r.json())
       .then((data) => {
         if (data.errors) {
-          setIsLoading(false);
           setErrors(data.errors);
         } else {
           addMeetingToUser(data);
-          setIsLoading(false);
           setFormData({
             meeting_datetime: "",
             location: "",
@@ -96,15 +89,14 @@ function NewMeetingForm() {
           />
         </div>
         <div className="flex flex-col h-full">
-        <label className=" text-white ">Location</label>
-        <button
-          type="submit"
-          className="mt-auto block rounded-md bg-indigo-600 px-3 py-1.5 max-h-10 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Schedule
-        </button>
+          <label className=" text-white ">Location</label>
+          <button
+            type="submit"
+            className="mt-auto block rounded-md bg-indigo-600 px-3 py-1.5 max-h-10 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Schedule
+          </button>
         </div>
-        {errors.map((err) => err)}
       </form>
     </div>
   );

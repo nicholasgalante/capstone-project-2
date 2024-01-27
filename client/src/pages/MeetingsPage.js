@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link, redirect } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { NewMeetingForm } from "../components/NewMeetingForm";
 import { format } from "date-fns";
-import { SignInForm } from "../components/SignInForm";
 import { useNavigate } from "react-router-dom";
+import { ErrorMessage } from "../components/ErrorMessage";
 
 function MeetingsPage() {
   const [errors, setErrors] = useState([]);
   const { user, userType, loading, error } = useContext(UserContext);
   const navigate = useNavigate();
+
+  console.log(errors)
 
   if (loading) {
     return <div>Loading...</div>;
@@ -28,7 +30,7 @@ function MeetingsPage() {
         </div>
 
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <NewMeetingForm />
+          <NewMeetingForm setErrors={setErrors}/>
         </div>
       </div>
       <div className="mt-8 flow-root">
@@ -56,12 +58,6 @@ function MeetingsPage() {
                     >
                       Location
                     </th>
-                    {/* <th
-                      scope="col"
-                      className="relative py-3.5 pl-3 pr-4 sm:pr-6"
-                    >
-                      <span className="sr-only">Edit</span>
-                    </th> */}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
@@ -81,13 +77,13 @@ function MeetingsPage() {
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {meeting.location}
                       </td>
-                      {/* <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                        <PencilSquareIcon className="mt-1 h-5 w-5 flex-none text-gray-400"/>
-                      </td> */}
                     </tr>
                   ))}
                 </tbody>
               </table>
+            </div>
+            <div className="mt-10">
+              <ErrorMessage errors={errors} />
             </div>
           </div>
         </div>
