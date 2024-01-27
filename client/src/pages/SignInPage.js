@@ -1,21 +1,16 @@
 import { Link } from "react-router-dom";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { ErrorMessage } from "../components/ErrorMessage";
 
 function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/meetings");
-  //   }
-  // }, [user, navigate]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -37,7 +32,7 @@ function SignInPage() {
           navigate("/meetings");
         });
       } else {
-        r.json().then((err) => console.log(err.errors));
+        r.json().then((err) => setErrors(err.errors));
       }
     });
   }
@@ -116,7 +111,9 @@ function SignInPage() {
             </button>
           </div>
         </form>
-        {errors.map((err) => err)}
+        <div className="mt-10">
+          <ErrorMessage errors={errors} />
+        </div>
         <p className="text-center text-sm leading-6 text-gray-500">
           Don't have an account?{" "}
           <Link
