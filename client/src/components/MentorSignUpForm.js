@@ -1,9 +1,7 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
-
-//Bug: After signing up, the user session does not persist
+import { ErrorMessage } from "../components/ErrorMessage";
 
 function MentorSignUpForm() {
   const [formData, setFormData] = useState({
@@ -51,6 +49,7 @@ function MentorSignUpForm() {
   };
 
   return (
+    <div>
     <form onSubmit={handleSubmit}>
       <label className="block text-sm font-medium leading-6 text-gray-900">
         First Name
@@ -136,8 +135,11 @@ function MentorSignUpForm() {
         {" "}
         {isLoading ? "Loading..." : "Create Account"}
       </button>
-      {errors.map((err) => err)}
     </form>
+          <div className="mt-10">
+          <ErrorMessage errors={errors} />
+        </div>
+        </div>
   );
 }
 

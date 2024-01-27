@@ -1,9 +1,7 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
-
-//Bug: After signing up, the user session does not persist
+import { ErrorMessage } from "../components/ErrorMessage";
 
 function StudentSignUpForm() {
   const [formData, setFormData] = useState({
@@ -53,117 +51,119 @@ function StudentSignUpForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label className="block text-sm font-medium leading-6 text-gray-900">
-        First Name
-      </label>
-      <div className="mt-2">
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label className="block text-sm font-medium leading-6 text-gray-900">
+          First Name
+        </label>
+        <div className="mt-2">
+          <input
+            value={formData.first_name}
+            onChange={handleChange}
+            type="text"
+            name="first_name"
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+        </div>
+        <label className="block text-sm font-medium leading-6 text-gray-900">
+          Last Name
+        </label>
         <input
-          value={formData.first_name}
+          value={formData.last_name}
           onChange={handleChange}
           type="text"
-          name="first_name"
+          name="last_name"
           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
         />
-      </div>
-      <label className="block text-sm font-medium leading-6 text-gray-900">
-        Last Name
-      </label>
-      <input
-        value={formData.last_name}
-        onChange={handleChange}
-        type="text"
-        name="last_name"
-        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      />
 
-      <label className="block text-sm font-medium leading-6 text-gray-900">
-        University Name
-      </label>
-      <input
-        value={formData.university_name}
-        onChange={handleChange}
-        type="text"
-        name="university_name"
-        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      />
+        <label className="block text-sm font-medium leading-6 text-gray-900">
+          University Name
+        </label>
+        <input
+          value={formData.university_name}
+          onChange={handleChange}
+          type="text"
+          name="university_name"
+          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        />
 
-      <label className="block text-sm font-medium leading-6 text-gray-900">
-        Degree Type
-      </label>
-      <select
-        value={formData.degree_type}
-        onChange={handleChange}
-        type="text"
-        name="degree_type"
-        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      >
-        <option value="">Select a degree type</option>
-        <option value="Associate">Associate Degree</option>
-        <option value="Bachelor">Bachelor Degree</option>
-        <option value="Master">Master Degree</option>
-      </select>
+        <label className="block text-sm font-medium leading-6 text-gray-900">
+          Degree Type
+        </label>
+        <select
+          value={formData.degree_type}
+          onChange={handleChange}
+          type="text"
+          name="degree_type"
+          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        >
+          <option value="">Select a degree type</option>
+          <option value="Associate">Associate Degree</option>
+          <option value="Bachelor">Bachelor Degree</option>
+          <option value="Master">Master Degree</option>
+        </select>
 
-      <label className="block text-sm font-medium leading-6 text-gray-900">
-        Area of Study
-      </label>
-      <input
-        value={formData.areaOfStudy}
-        onChange={handleChange}
-        type="text"
-        name="areaOfStudy"
-        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      />
+        <label className="block text-sm font-medium leading-6 text-gray-900">
+          Area of Study
+        </label>
+        <input
+          value={formData.areaOfStudy}
+          onChange={handleChange}
+          type="text"
+          name="areaOfStudy"
+          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        />
 
-      <label className="block text-sm font-medium leading-6 text-gray-900">
-        Expected Graduation Date
-      </label>
-      <input
-        value={formData.expected_graduation_date}
-        onChange={handleChange}
-        type="date"
-        name="expected_graduation_date"
-        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      />
+        <label className="block text-sm font-medium leading-6 text-gray-900">
+          Expected Graduation Date
+        </label>
+        <input
+          value={formData.expected_graduation_date}
+          onChange={handleChange}
+          type="date"
+          name="expected_graduation_date"
+          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        />
 
-      <label className="block text-sm font-medium leading-6 text-gray-900">
-        Email Address
-      </label>
-      <input
-        value={formData.email_address}
-        onChange={handleChange}
-        type="email"
-        name="email_address"
-        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      />
-      <label className="block text-sm font-medium leading-6 text-gray-900">
-        Password
-      </label>
-      <input
-        value={formData.password}
-        onChange={handleChange}
-        type="password"
-        name="password"
-        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      />
-      <label className="block text-sm font-medium leading-6 text-gray-900">
-        Password Confirmation
-      </label>
-      <input
-        value={formData.password_confirmation}
-        onChange={handleChange}
-        type="password"
-        name="password_confirmation"
-        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      />
-      <button
-        type="submit"
-        className="flex mt-5 w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-      >
-        {isLoading ? "Loading..." : "Create Account"}
-      </button>
-      {errors.map((err) => err)}
-    </form>
+        <label className="block text-sm font-medium leading-6 text-gray-900">
+          Email Address
+        </label>
+        <input
+          value={formData.email_address}
+          onChange={handleChange}
+          type="email"
+          name="email_address"
+          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        />
+        <label className="block text-sm font-medium leading-6 text-gray-900">
+          Password
+        </label>
+        <input
+          value={formData.password}
+          onChange={handleChange}
+          type="password"
+          name="password"
+          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        />
+        <label className="block text-sm font-medium leading-6 text-gray-900">
+          Password Confirmation
+        </label>
+        <input
+          value={formData.password_confirmation}
+          onChange={handleChange}
+          type="password"
+          name="password_confirmation"
+          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        />
+        <button
+          type="submit"
+          className="flex mt-5 w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          {isLoading ? "Loading..." : "Create Account"}
+        </button>
+      </form>
+      <ErrorMessage errors={errors} />
+    </div>
   );
 }
 

@@ -10,7 +10,7 @@ function classNames(...classes) {
 
 function SignUpPage() {
   const [userType, setUserType] = useState("student");
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
