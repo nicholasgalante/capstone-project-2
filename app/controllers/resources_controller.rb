@@ -11,7 +11,7 @@ class ResourcesController < ApplicationController
   end
 
   def create
-    resource = Resource.create(resource_params)
+    resource = Resource.create!(resource_params)
     render json: resource, status: :created
   end
 
