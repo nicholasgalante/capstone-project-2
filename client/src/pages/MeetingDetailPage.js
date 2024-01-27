@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { useParams, Link } from "react-router-dom";
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { ResourcesList } from "../components/ResourcesList";
+import { ErrorMessage } from "../components/ErrorMessage";
 
 function MeetingDetailPage() {
   const [meetingData, setMeetingData] = useState({});
@@ -43,9 +44,7 @@ function MeetingDetailPage() {
     if (
       meetingData.resources.find((resource) => resource.id === newResource.id)
     ) {
-      console.log("Resource already attached to meeting.");
-      //set error message
-      return;
+      setErrors(["Resource already attached to meeting."]);
     } else {
       console.log("ADD RESOURCE: ", newResource);
       fetch("/meeting_resources", {
@@ -75,6 +74,7 @@ function MeetingDetailPage() {
   };
 
   function handleSaveChanges() {
+    setErrors([]);
     fetch(`/meetings/${meetingID}`, {
       method: "PATCH",
       headers: {
@@ -84,8 +84,12 @@ function MeetingDetailPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setMeetingData(data);
-        setUpdating(false);
+        if (data.errors) {
+          setErrors(data.errors);
+        } else {
+          setMeetingData(data);
+          setUpdating(false);
+        }
       });
   }
 
@@ -154,14 +158,12 @@ function MeetingDetailPage() {
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           {updating ? (
             <div>
-              <div className="flex items-center justify-between">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                  <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
-                    Meeting Log
-                  </h1>
-                </div>
+              <div className="flex items-center justify-between mb-8 ">
+                <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
+                  Meeting Log
+                </h1>
 
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-end flex-grow">
                   <button
                     onClick={handleSaveChanges}
                     className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -179,7 +181,7 @@ function MeetingDetailPage() {
               <div>
                 <label
                   htmlFor="comment"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="mt-2 block text-sm font-medium leading-6 text-gray-900"
                 >
                   Date Scheduled
                 </label>
@@ -198,7 +200,7 @@ function MeetingDetailPage() {
                 </div>
                 <label
                   htmlFor="comment"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="mt-2 block text-sm font-medium leading-6 text-gray-900"
                 >
                   Time Scheduled
                 </label>
@@ -214,7 +216,7 @@ function MeetingDetailPage() {
                 </div>
                 <label
                   htmlFor="comment"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="mt-2 block text-sm font-medium leading-6 text-gray-900"
                 >
                   Location
                 </label>
@@ -223,7 +225,7 @@ function MeetingDetailPage() {
                     rows={1}
                     name="comment"
                     id="comment"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={updatedData.location}
                     onChange={(e) =>
                       handleFieldChange("location", e.target.value)
@@ -232,7 +234,7 @@ function MeetingDetailPage() {
                 </div>
                 <label
                   htmlFor="comment"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="mt-2 block text-sm font-medium leading-6 text-gray-900"
                 >
                   Topics Discussed
                 </label>
@@ -250,7 +252,7 @@ function MeetingDetailPage() {
                 </div>
                 <label
                   htmlFor="comment"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="mt-2 block text-sm font-medium leading-6 text-gray-900"
                 >
                   Next Steps
                 </label>
@@ -259,7 +261,7 @@ function MeetingDetailPage() {
                     rows={4}
                     name="comment"
                     id="comment"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={updatedData.next_steps}
                     onChange={(e) =>
                       handleFieldChange("next_steps", e.target.value)
@@ -268,7 +270,7 @@ function MeetingDetailPage() {
                 </div>
                 <label
                   htmlFor="comment"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="mt-2 block text-sm font-medium leading-6 text-gray-900"
                 >
                   Attached Resources
                 </label>
@@ -285,7 +287,7 @@ function MeetingDetailPage() {
                           {resource.title}
                         </button>
                       ))
-                    : "Attach resources using the list below."}
+                    : <div className="text-gray-500"> Attach resources using the list below. </div>}
                 </div>
 
                 <ResourcesList
@@ -296,17 +298,14 @@ function MeetingDetailPage() {
             </div>
           ) : (
             <div>
-              <div className="flex items-center justify-between">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                  <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
-                    Meeting Log
-                  </h1>
-                </div>
-
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between mb-8">
+                <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
+                  Meeting Log
+                </h1>
+                <div className="flex justify-end flex-grow">
                   <button
                     onClick={handleEdit}
-                    className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="ml-auto rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     Update Meeting Log
                   </button>
@@ -324,7 +323,7 @@ function MeetingDetailPage() {
                   rows={1}
                   name="comment"
                   id="comment"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
+                  className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                   defaultValue={format(
                     new Date(meeting_datetime),
                     "EEEE, MMMM do, yyyy"
@@ -335,7 +334,7 @@ function MeetingDetailPage() {
 
               <label
                 htmlFor="comment"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-900 mt-2"
               >
                 Time Scheduled
               </label>
@@ -352,7 +351,7 @@ function MeetingDetailPage() {
 
               <label
                 htmlFor="comment"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-900 mt-2"
               >
                 Location
               </label>
@@ -361,7 +360,7 @@ function MeetingDetailPage() {
                   rows={1}
                   name="comment"
                   id="comment"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
+                  className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                   defaultValue={location}
                   readOnly
                 />
@@ -369,7 +368,7 @@ function MeetingDetailPage() {
 
               <label
                 htmlFor="comment"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="mt-2 block text-sm font-medium leading-6 text-gray-900"
               >
                 Topics Discussed
               </label>
@@ -386,7 +385,7 @@ function MeetingDetailPage() {
 
               <label
                 htmlFor="comment"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="mt-2 block text-sm font-medium leading-6 text-gray-900"
               >
                 Next Steps
               </label>
@@ -395,7 +394,7 @@ function MeetingDetailPage() {
                   rows={4}
                   name="comment"
                   id="comment"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
+                  className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                   defaultValue={next_steps}
                   readOnly
                 />
@@ -403,7 +402,7 @@ function MeetingDetailPage() {
 
               <label
                 htmlFor="comment"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="mt-2 block text-sm font-medium leading-6 text-gray-900"
               >
                 Attached Resources
               </label>
@@ -417,10 +416,13 @@ function MeetingDetailPage() {
                         </button>
                       </Link>
                     ))
-                  : "Currently, no resources are attached. Update meeting log to attach resources."}
+                  : <div className="text-gray-400"> Currently, no resources are attached. Update meeting log to attach resources. </div>}
               </div>
             </div>
           )}
+          <div className="mt-10">
+            <ErrorMessage errors={errors} />
+          </div>
         </div>
       </main>
     </div>
