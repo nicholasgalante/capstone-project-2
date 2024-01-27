@@ -1,16 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import { ErrorMessage } from "../components/ErrorMessage";
 
 function ResourcesPage() {
   const [resources, setResources] = useState([]);
   const [errors, setErrors] = useState([]);
-  const { user, setUser } = useContext(UserContext);
-  const { userType, setUserType } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const { userType } = useContext(UserContext);
   const [formData, setFormData] = useState({
     title: "",
     url: "",
   });
+
+  console.log(errors);
+  console.log(formData);
 
   useEffect(() => {
     fetch("/my_resources")
@@ -23,9 +27,7 @@ function ResourcesPage() {
   function handleSubmit(e) {
     e.preventDefault();
     setErrors([]);
-
     const ownerType = userType.user_type == "mentor" ? "Mentor" : "Student";
-
     fetch("/resources", {
       method: "POST",
       headers: {
@@ -57,15 +59,15 @@ function ResourcesPage() {
       headers: {
         "Content-Type": "application/json",
       },
+    }).then((data) => {
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
+        setResources(
+          resources.filter((resource) => resource.id !== resourceId)
+        );
+      }
     });
-    // .then((data) => {
-    //   if (data.errors) {
-    //     setErrors(data.errors);
-    //   } else {
-    //     setResources(resources.filter((resource) => resource.id !== data.id));
-    //   }
-    // });
-    setResources(resources.filter((resource) => resource.id !== resourceId));
   }
 
   return (
@@ -115,7 +117,6 @@ function ResourcesPage() {
                 Create
               </button>
             </div>
-            {errors.map((err) => err)}
           </form>
         </div>
       </div>
@@ -145,11 +146,12 @@ function ResourcesPage() {
                   {resources.length > 0 &&
                     resources.map((resource) => (
                       <tr key={resource.id}>
-                        
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-indigo-600 hover:text-indigo-900">
-                          <Link to={resource.url} target="_blank">{resource.title}</Link>
-                          </td>
-                        
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-indigo-600 hover:text-indigo-900">
+                          <Link to={resource.url} target="_blank">
+                            {resource.title}
+                          </Link>
+                        </td>
+
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                           <a
                             className="text-gray-400 hover:text-red-500"
@@ -162,6 +164,9 @@ function ResourcesPage() {
                     ))}
                 </tbody>
               </table>
+            </div>
+            <div className="mt-10">
+              <ErrorMessage errors={errors} />
             </div>
           </div>
         </div>
