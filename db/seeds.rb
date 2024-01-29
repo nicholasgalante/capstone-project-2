@@ -25,6 +25,7 @@ Mentor.create!(
   company_name: "TechCo",
   job_title: "Data Scientist",
   profile_image_url: "https://www.bethesdaheadshots.com/wp-content/uploads/2022/05/pretty-black-female-business-headshot.jpg",
+  matched: true,
 )
 
 
@@ -49,6 +50,7 @@ Student.create!(
   expected_graduation_date: Date.new(2024, 8, 15),
   mentor_id: Mentor.find_by(first_name: "Carla").id,
   profile_image_url: "https://media.istockphoto.com/id/1300512215/photo/headshot-portrait-of-smiling-ethnic-businessman-in-office.jpg?s=612x612&w=0&k=20&c=QjebAlXBgee05B3rcLDAtOaMtmdLjtZ5Yg9IJoiy-VY=",
+  matched: true,
 )
 
 
