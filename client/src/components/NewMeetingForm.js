@@ -8,12 +8,16 @@ function NewMeetingForm({ setErrors }) {
     location: "",
   });
 
+  if (user.user_type === "mentor") {
+    return 
+
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
   function getUserIDs() {
-    if (user.company_name) {
+    console.log(user)
+    if (user.user_type === "mentor") {
       return {
         ...formData,
         organizer_id: user.id,
