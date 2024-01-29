@@ -9,7 +9,7 @@ class Mentor < ApplicationRecord
 
   validates :first_name, :last_name, :email_address, :company_name, :job_title, presence: true
   validates :password, confirmation: true
-  #validates :password, length: { minimum: 6, message: "must be at least 6 characters long" }
+  validates :password, length: { minimum: 6, message: "Password must be at least 6 characters long" }
   validates :email_address, uniqueness: true
 
   private
