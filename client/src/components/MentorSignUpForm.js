@@ -15,7 +15,7 @@ function MentorSignUpForm() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
-  const { setUser } = useContext(UserContext);
+  const { setUser, setUserType } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -40,6 +40,7 @@ function MentorSignUpForm() {
       if (r.ok) {
         r.json().then((user) => {
           setUser(user);
+          setUserType("mentor");
           navigate("/signin");
         });
       } else {

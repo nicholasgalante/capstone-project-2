@@ -9,7 +9,7 @@ function StudentSignUpForm() {
     last_name: "",
     university_name: "",
     degree_type: "",
-    area_o_study: "",
+    area_of_study: "",
     expected_graduation_date: "",
     email_address: "",
     password: "",
@@ -17,7 +17,7 @@ function StudentSignUpForm() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
-  const { setUser } = useContext(UserContext);
+  const { setUser, setUserType } = useContext(UserContext);
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -38,6 +38,7 @@ function StudentSignUpForm() {
         r.json().then((user) => {
           console.log("NEW USER: ", user);
           setUser(user);
+          setUserType("student");
           navigate("/signin");
         });
       } else {
@@ -107,10 +108,10 @@ function StudentSignUpForm() {
           Area of Study
         </label>
         <input
-          value={formData.areaOfStudy}
+          value={formData.area_of_study}
           onChange={handleChange}
           type="text"
-          name="areaOfStudy"
+          name="area_of_study"
           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
         />
 
