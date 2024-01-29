@@ -5,6 +5,7 @@ import { NewMeetingForm } from "../components/NewMeetingForm";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage } from "../components/ErrorMessage";
+import { MatchPending } from "./MatchPending";
 
 function MeetingsPage() {
   const [errors, setErrors] = useState([]);
@@ -19,6 +20,10 @@ function MeetingsPage() {
 
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if(user.matched == false) {
+    return (<MatchPending/>)
   }
 
   return (

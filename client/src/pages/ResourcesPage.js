@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { ErrorMessage } from "../components/ErrorMessage";
+import { MatchPending } from "../pages/MatchPending";
 
 function ResourcesPage() {
   const [resources, setResources] = useState([]);
@@ -20,6 +21,10 @@ function ResourcesPage() {
         setResources(data);
       });
   }, []);
+  
+  if(user.matched == false) {
+    return (<MatchPending/>)
+  }
 
   function handleSubmit(e) {
     e.preventDefault();

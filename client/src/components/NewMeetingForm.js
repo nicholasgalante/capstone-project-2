@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
 function NewMeetingForm({ setErrors }) {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, userType } = useContext(UserContext);
   const [formData, setFormData] = useState({
     meeting_datetime: "",
     location: "",
@@ -14,7 +14,7 @@ function NewMeetingForm({ setErrors }) {
 
   function getUserIDs() {
     console.log(user)
-    if (user.user_type === "mentor") {
+    if (userType.user_type === "mentor") {
       return {
         ...formData,
         organizer_id: user.id,

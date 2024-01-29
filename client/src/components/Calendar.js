@@ -23,6 +23,7 @@ import {
 } from "date-fns";
 import { UserContext } from "../context/UserContext";
 import { Link } from "react-router-dom";
+import { MatchPending } from "../pages/MatchPending";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -37,6 +38,10 @@ function Calendar() {
 
   if (!user) {
     return <div>Please sign in to view meetings.</div>;
+  }
+
+  if(user.matched == false) {
+    return (<MatchPending/>)
   }
 
   let days = eachDayOfInterval({
