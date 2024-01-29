@@ -8,9 +8,6 @@ function NewMeetingForm({ setErrors }) {
     location: "",
   });
 
-  if (user.user_type === "mentor") {
-    return 
-
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }

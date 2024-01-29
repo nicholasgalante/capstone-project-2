@@ -13,9 +13,6 @@ function ResourcesPage() {
     url: "",
   });
 
-  console.log(errors);
-  console.log(formData);
-
   useEffect(() => {
     fetch("/my_resources")
       .then((res) => res.json())

@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { UserContext } from "../context/UserContext";
 import { Link, useNavigate, NavLink } from "react-router-dom";
 
@@ -10,25 +9,12 @@ function classNames(...classes) {
 }
 
 function Navbar() {
-  const { user, setUser, userType, loading, error } = useContext(UserContext);
-  // const [matchedUser, setMatchedUser] = useState(null);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (userType.user_type === "mentor") {
-  //     setMatchedUser(user.student);
-  //   } else {
-  //     setMatchedUser(user.mentor);
-  //   }
-  // }, [user]);
-
+  
   if (!user) {
     return navigate("/signin");
   }
-
-  // if(!matchedUser){
-  //   return <div>Loading...</div>
-  // }
 
   function handleSignOut() {
     fetch("/logout", {

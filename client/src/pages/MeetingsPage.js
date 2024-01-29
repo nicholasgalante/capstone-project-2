@@ -13,6 +13,10 @@ function MeetingsPage() {
 
   console.log(errors)
 
+  if (!user) {
+    return <div>Please sign in to view meetings.</div>;
+  }
+
   if (loading) {
     return <div>Loading...</div>;
   }
