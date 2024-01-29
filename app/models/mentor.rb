@@ -7,10 +7,10 @@ class Mentor < ApplicationRecord
   has_many :meetings, dependent: :destroy
   has_many :resources, as: :owner, dependent: :destroy
 
+  # validates :password, length: { minimum: 5, message: "must be at least 5 characters long" }
   validates :first_name, :last_name, :email_address, :company_name, :job_title, presence: true
   validates :password, confirmation: true
-  validates :password, length: { minimum: 6, message: "Password must be at least 6 characters long" }
-  validates :email_address, uniqueness: true
+  validates :email_address, uniqueness: { message: "This email address is already in use, please try another." }
 
   private
 
